@@ -77,7 +77,7 @@ form input {
 .order-content {
     width: 90%;
     padding: 5%;
-    height: 85px;
+    height: 90px;
     border-bottom: 1px solid lightgrey;
 }
 
@@ -104,13 +104,16 @@ form input {
 .content {
     height: 100%;
     flex: 4;
+    overflow-y: scroll;
 }
 
 .content header {
     background-color: #eff4f8;
     border-bottom: 1px solid lightgrey;
 }
-
+.content h3{
+    padding: 10px;
+}
 .order-info {
     width: 94%;
     height: 230px;
@@ -165,8 +168,8 @@ form input {
 
 .shipping {
     width: 94%;
-    height: 160px;
-    padding: 3%;
+    height: 175px;
+    padding: 20px 3% 3%;
     border-bottom: 1px solid lightgrey;
     position: relative;
 }
@@ -175,6 +178,9 @@ hr{
     color: lightgrey;
     background-color:lightgrey;
     height: 1px;
+    margin-top: -10px;
+}
+.shipping div{
     margin-top: -10px;
 }
 .shipping ul:nth-of-type(1){
@@ -191,9 +197,38 @@ hr{
 }
 .shipping li{
     list-style: none;
-    margin-top: 4px;
+    margin-top: 3px;
+}
+.line-items{
+    background-color: #fafafa;
+    width: 96%;
+    padding: 20px 2% 2%;
 }
 
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td{
+    text-align: right;
+    padding: 5px 10px 5px 10px;
+}
+th:nth-of-type(1), td:nth-of-type(1){
+    text-align: left;
+}
+td{
+    background-color: white;
+}
+th{
+    background-color: #f8f8f8;
+}
+tr {
+    border-top: 1px solid lightgrey;
+}
+table h4{
+    padding-bottom: 4px;
+    color: black;
+}
 footer {
     max-width: 1400px;
     height: 40px;
