@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <title>ItechArt</title>
     <link rel="stylesheet" href="index.css">
+    <script src="index.js" defer></script>
 </head>
 <body>
 <div class="container">
     <section>
-        <aside>
-            <header><h3>Orders(10)</h3></header>
+        <aside class="show-menu">
+            <header>
+                <img src="./icons/back.png" alt="">
+                <h3>Orders(10)</h3></header>
             <form action="">
                 <input type="text" placeholder="Поиск">
+                <img src="./icons/search.png" alt="">
+                <img src="./icons/refresh.png" alt="">
             </form>
             <div class="orders">
                 <div class="order-content">
@@ -26,7 +31,7 @@
                     <p>Bergiunds snabbkop</p>
                     <p>Shipped: 25 nov 2016</p>
                     <h2 class="date">21.11.2016</h2>
-                    <p class="order-status">In time</p>
+                    <p class="order-status red">Urgent</p>
                 </div>
                 <div class="order-content">
                     <h3>Order 7991</h3>
@@ -71,16 +76,20 @@
                     <p class="order-status">In time</p>
                 </div>
             </div>
+            <img class="footer-img" src="./icons/align.png" alt="">
+            <img class="footer-img" src="./icons/filter.png" alt="">
         </aside>
         <div class="content">
-            <header><h3>Order</h3></header>
+            <header>
+                <img id="menuBtn" src="./icons/open-menu.png" alt="">
+                <h3>Order</h3></header>
             <div class="order-info">
                 <h2>Order 7918</h2>
                 <br>
                 <p>Customer: Tortuga Restarante</p>
                 <p>Ordered: 18 sep 2016</p>
                 <p>Shipped: 26 sep 2016</p>
-                <p class="price">150 935,13 <br> EUR</p>
+                <p class="price">150 935,13<br><small><small>EUR</small></small></p>
                 <div class="bottom-line">
                     <div class="circle">
                         <img src="./icons/delivery-truck.png" alt="">
@@ -93,11 +102,11 @@
                 </div>
             </div>
             <div class="shipping">
-                    <h3>Shipping Adress</h3>
-                    <br>
-                    <hr>
+                <h3>Shipping Adress</h3>
+                <br>
+                <hr>
                 <div>
-                <ul>
+                    <ul>
                         <li>Name:</li>
                         <li>Street:</li>
                         <li>ZIP Code / City:</li>
@@ -125,39 +134,38 @@
                     <tr>
                         <td><h4>Aniseed Syrup</h4>
                             <span>1412</span></td>
-                        <td>65.89 EUR</td>
+                        <td><b>65.89</b> EUR</td>
                         <td>899</td>
-                        <td>59 235,11 EUR</td>
+                        <td><b>59 235,11</b> EUR</td>
                     </tr>
                     <tr>
                         <td><h4>Aniseed Syrup</h4>
                             <span>1412</span></td>
-                        <td>65.89 EUR</td>
+                        <td><b>65.89</b> EUR</td>
                         <td>899</td>
-                        <td>59 235,11 EUR</td>
+                        <td><b>59 235,11</b> EUR</td>
                     </tr>
                     <tr>
                         <td><h4>Aniseed Syrup</h4>
                             <span>1412</span></td>
-                        <td>65.89 EUR</td>
+                        <td><b>65.89</b> EUR</td>
                         <td>899</td>
-                        <td>59 235,11 EUR</td>
+                        <td><b>59 235,11</b> EUR</td>
                     </tr>
                     <tr>
                         <td><h4>Aniseed Syrup</h4>
                             <span>1412</span></td>
-                        <td>65.89 EUR</td>
+                        <td><b>65.89</b> EUR</td>
                         <td>899</td>
-                        <td>59 235,11 EUR</td>
+                        <td><b>59 235,11</b> EUR</td>
                     </tr>
-
                 </table>
             </div>
         </div>
     </section>
 </div>
 <footer>
-
+    <img class="footer-img" src="./icons/mail.png" alt="">
 </footer>
 </body>
 </html>
