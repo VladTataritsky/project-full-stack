@@ -66,12 +66,18 @@ form img {
 }
 
 form img:nth-of-type(2) {
-    right: 10px;
+    right: 15px;
 }
 
 form input {
     height: 20px;
-    width: 97%;
+    width: 94%;
+    font-style: italic;
+    text-indent: 10px;
+}
+form input:focus{
+    outline: 1px dotted black;
+    outline-offset: -3px;
 }
 
 .orders {
@@ -82,9 +88,8 @@ form input {
 }
 
 .orders::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
-    background-color: #F5F5F5;
+    background-color: white;
 }
 
 .orders::-webkit-scrollbar {
@@ -94,32 +99,38 @@ form input {
 
 .orders::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .8);
 }
 
 .order-content {
     width: 90%;
-    padding: 5%;
-    height: 90px;
-    border-bottom: 1px solid lightgrey;
+    padding: 4% 5% 1%;
+    height: auto;
+    border-bottom: 2px solid #d8e2ec;
+    position: relative;
+}
+
+.order-content:hover {
+    background-color: #EEEEEE;
 }
 
 .order-content:focus {
-    background-color: black;
+    background-color: #e8eff7;
+    outline: 1px dotted black;
 }
 
 .date {
-    position: relative;
-    top: -115px;
-    left: 185px;
+    position: absolute;
+    top: 12px;
+    left: 200px;
     display: inline-block;
     width: auto;
 }
 
 .order-status {
-    position: relative;
-    top: -85px;
-    left: 130px;
+    position: absolute;
+    top: 35px;
+    left: 270px;
     display: inline-block;
     width: auto;
 }
@@ -132,7 +143,6 @@ form input {
 }
 
 .content::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     border-radius: 10px;
     background-color: #F5F5F5;
 }
@@ -144,16 +154,16 @@ form input {
 
 .content::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .8);
 }
 
 .content header {
     max-width: 1055px;
     background-color: #eff4f8;
-    border-bottom: 1px solid lightgrey;
+    border-bottom: 1px solid #d8e2ec;
     position: fixed;
     top: 0;
-    width: 100%;
+    width: calc(100% - 320px);
     z-index: 11;
 }
 
@@ -179,7 +189,7 @@ header h3 {
     height: 230px;
     background-color: #eff4f8;
     padding: 40px 3% 3%;
-    border-bottom: 1px solid lightgrey;
+    border-bottom: 1px solid #d8e2ec;
     position: relative;
     z-index: 1;
 
@@ -192,18 +202,16 @@ header h3 {
     top: -170px;
 }
 
-.order-info .circle {
+.circle {
     width: 50px;
     height: 50px;
-    border: 1px solid #457cb4;
-    border-radius: 50%;
     text-align: center;
-    background-color: #868A08;
-    filter: invert(1);
+    border-radius: 50%;
+    border: 1px solid #8092a0;
 }
 
-.circle:nth-of-type(2n) {
-    background-color: #868A08;
+.circle-active {
+    background-color: #b8835b;
     filter: invert(1);
 }
 
@@ -222,17 +230,18 @@ header h3 {
 
 .bottom-line:nth-of-type(2) {
     left: 120px;
+    border-bottom: 3px solid transparent;
 }
 
 .bottom-line:nth-of-type(1) {
-    border-bottom: 3px solid blue;
+    border-bottom: 3px solid #738fa4;
 }
 
 .shipping {
     width: 94%;
     height: 175px;
     padding: 20px 3% 3%;
-    border-bottom: 1px solid lightgrey;
+    border-bottom: 1px solid #d8e2ec;
     position: relative;
 }
 
@@ -265,6 +274,49 @@ hr {
 .shipping li {
     list-style: none;
     margin-top: 3px;
+}
+
+#processorInfContainer .shipping ul:nth-of-type(1) {
+    width: 25%;
+}
+
+#processorInfContainer .shipping ul:nth-of-type(2) {
+    width: 60%;
+}
+
+#processorInfContainer .shipping {
+    height: 250px;
+}
+
+.shipping .details {
+    width: 55%;
+    margin-top: 10px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+.shipping h4 {
+    margin-left: 10px;
+}
+
+.shipping .picture {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 10px;
+}
+
+.shipping .pictureBg {
+    background-color: #d1ddeb;
+    width: 150px;
+    height: 150px;
+    margin-top: 15px;
+}
+
+.shipping .picture img {
+    width: 80px;
+    filter: invert(1);
+    margin-top: 35px;
+    margin-left: 35px;
 }
 
 .line-items {
@@ -310,6 +362,7 @@ footer {
     margin: 0 auto;
     background-color: #2f3b47;
     z-index: 10;
+    padding-bottom: 3px;
 }
 
 .footer-img {
@@ -320,10 +373,16 @@ footer {
     padding-right: 20px;
 }
 
+#processorInfContainer {
+    display: none;
+}
+
 @media (max-width: 1100px) {
-    aside {
-        display: none;
+    .content header {
+        max-width: 1100px;
+        width: 100vw;
     }
+
     .show-menu {
         display: block;
     }

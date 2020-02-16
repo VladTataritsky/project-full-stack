@@ -9,66 +9,87 @@
 <body>
 <div class="container">
     <section>
-        <aside class="show-menu">
+        <aside class="hide-menu">
             <header>
                 <img src="./icons/back.png" alt="">
                 <h3>Orders(10)</h3></header>
             <form action="">
                 <input type="text" placeholder="Поиск">
-                <img src="./icons/search.png" alt="">
-                <img src="./icons/refresh.png" alt="">
+                <img id="searchIcon" src="./icons/search.png" alt="">
+                <img id="refreshIcon" src="./icons/refresh.png" alt="">
             </form>
             <div class="orders">
-                <div class="order-content">
+                <div class="order-content" tabindex="0">
                     <h3>Order 7991</h3>
                     <p>Bergiunds snabbkop</p>
                     <p>Shipped: 25 nov 2016</p>
                     <h2 class="date">21.11.2016</h2>
                     <p class="order-status">In time</p>
                 </div>
-                <div class="order-content">
+                <div class="order-content" tabindex="0">
                     <h3>Order 7991</h3>
                     <p>Bergiunds snabbkop</p>
                     <p>Shipped: 25 nov 2016</p>
                     <h2 class="date">21.11.2016</h2>
                     <p class="order-status red">Urgent</p>
                 </div>
-                <div class="order-content">
+                <div class="order-content" tabindex="0">
                     <h3>Order 7991</h3>
                     <p>Bergiunds snabbkop</p>
                     <p>Shipped: 25 nov 2016</p>
                     <h2 class="date">21.11.2016</h2>
                     <p class="order-status">In time</p>
                 </div>
-                <div class="order-content">
+                <div class="order-content" tabindex="0">
                     <h3>Order 7991</h3>
                     <p>Bergiunds snabbkop</p>
                     <p>Shipped: 25 nov 2016</p>
                     <h2 class="date">21.11.2016</h2>
                     <p class="order-status">In time</p>
                 </div>
-                <div class="order-content">
+                <div class="order-content" tabindex="0">
                     <h3>Order 7991</h3>
                     <p>Bergiunds snabbkop</p>
                     <p>Shipped: 25 nov 2016</p>
                     <h2 class="date">21.11.2016</h2>
                     <p class="order-status">In time</p>
                 </div>
-                <div class="order-content">
+                <div class="order-content" tabindex="0">
                     <h3>Order 7991</h3>
                     <p>Bergiunds snabbkop</p>
                     <p>Shipped: 25 nov 2016</p>
                     <h2 class="date">21.11.2016</h2>
                     <p class="order-status">In time</p>
                 </div>
-                <div class="order-content">
+                <div class="order-content" tabindex="0">
                     <h3>Order 7991</h3>
                     <p>Bergiunds snabbkop</p>
                     <p>Shipped: 25 nov 2016</p>
                     <h2 class="date">21.11.2016</h2>
                     <p class="order-status">In time</p>
                 </div>
-                <div class="order-content">
+                <div class="order-content" tabindex="0">
+                    <h3>Order 7991</h3>
+                    <p>Bergiunds snabbkop</p>
+                    <p>Shipped: 25 nov 2016</p>
+                    <h2 class="date">21.11.2016</h2>
+                    <p class="order-status">In time</p>
+                </div>
+                <div class="order-content" tabindex="0">
+                    <h3>Order 7991</h3>
+                    <p>Bergiunds snabbkop</p>
+                    <p>Shipped: 25 nov 2016</p>
+                    <h2 class="date">21.11.2016</h2>
+                    <p class="order-status">In time</p>
+                </div>
+                <div class="order-content" tabindex="0">
+                    <h3>Order 7991</h3>
+                    <p>Bergiunds snabbkop</p>
+                    <p>Shipped: 25 nov 2016</p>
+                    <h2 class="date">21.11.2016</h2>
+                    <p class="order-status">In time</p>
+                </div>
+                <div class="order-content" tabindex="0">
                     <h3>Order 7991</h3>
                     <p>Bergiunds snabbkop</p>
                     <p>Shipped: 25 nov 2016</p>
@@ -89,37 +110,71 @@
                 <p>Customer: Tortuga Restarante</p>
                 <p>Ordered: 18 sep 2016</p>
                 <p>Shipped: 26 sep 2016</p>
-                <p class="price">150 935,13<br><small><small>EUR</small></small></p>
-                <div class="bottom-line">
-                    <div class="circle">
+                <p class="price">150 935,13<br>
+                    <small>
+                        <small>EUR</small>
+                    </small>
+                </p>
+                <div id="truckBtn" class="bottom-line">
+                    <div class="circle circle-active">
                         <img src="./icons/delivery-truck.png" alt="">
                     </div>
                 </div>
-                <div class="bottom-line">
+                <div id="personBtn" class="bottom-line">
                     <div class="circle">
                         <img src="./icons/avatar.png" alt="">
                     </div>
                 </div>
             </div>
-            <div class="shipping">
-                <h3>Shipping Adress</h3>
-                <br>
-                <hr>
-                <div>
-                    <ul>
-                        <li>Name:</li>
-                        <li>Street:</li>
-                        <li>ZIP Code / City:</li>
-                        <li>Region:</li>
-                        <li>Country:</li>
-                    </ul>
-                    <ul>
-                        <li>ExcellentParcel</li>
-                        <li>Tottenham Court Road</li>
-                        <li>N170AA London</li>
-                        <li>Greater London</li>
-                        <li>United Kingdom</li>
-                    </ul>
+            <div id="shippingContainer">
+                <div class="shipping">
+                    <h3>Shipping Adress</h3>
+                    <br>
+                    <hr>
+                    <div>
+                        <ul>
+                            <li>Name:</li>
+                            <li>Street:</li>
+                            <li>ZIP Code / City:</li>
+                            <li>Region:</li>
+                            <li>Country:</li>
+                        </ul>
+                        <ul>
+                            <li>ExcellentParcel</li>
+                            <li>Tottenham Court Road</li>
+                            <li>N170AA London</li>
+                            <li>Greater London</li>
+                            <li>United Kingdom</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="processorInfContainer">
+                <div class="shipping">
+                    <h3>Processor information</h3>
+                    <br>
+                    <hr>
+                    <div class="details">
+                        <h4>Details</h4>
+                        <ul>
+                            <li>Name:</li>
+                            <li>Employee ID:</li>
+                            <li>Job Title:</li>
+                            <li>Phone:</li>
+                        </ul>
+                        <ul>
+                            <li>Jack Smith</li>
+                            <li>7424</li>
+                            <li>Developer</li>
+                            <li>0178116348</li>
+                        </ul>
+                    </div>
+                    <div class="picture">
+                        <h4>Picture</h4>
+                        <div class="pictureBg">
+                            <img src="./icons/avatar.png" alt="">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="line-items">
