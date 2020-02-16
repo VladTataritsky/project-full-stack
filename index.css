@@ -15,7 +15,7 @@ p {
 
 body {
     height: 100vh;
-    width: 100%;
+    width: 100vw;
     background: linear-gradient(180deg, rgba(170, 197, 224, 1) 0%, rgba(255, 255, 255, 1) 100%);
     font-family: sans-serif;
 }
@@ -51,7 +51,7 @@ header img {
     width: 15px;
     position: absolute;
     left: 10px;
-    top: 10px;
+    top: 12px;
 }
 
 form {
@@ -75,7 +75,8 @@ form input {
     font-style: italic;
     text-indent: 10px;
 }
-form input:focus{
+
+form input:focus {
     outline: 1px dotted black;
     outline-offset: -3px;
 }
@@ -188,7 +189,7 @@ header h3 {
     width: 94%;
     height: 230px;
     background-color: #eff4f8;
-    padding: 40px 3% 3%;
+    padding: 40px 3% 30px;
     border-bottom: 1px solid #d8e2ec;
     position: relative;
     z-index: 1;
@@ -199,7 +200,7 @@ header h3 {
     position: relative;
     font-size: 24px;
     text-align: right;
-    top: -170px;
+    top: -174px;
 }
 
 .circle {
@@ -229,7 +230,7 @@ header h3 {
 }
 
 .bottom-line:nth-of-type(2) {
-    left: 120px;
+    left: calc(7% + 50px);
     border-bottom: 3px solid transparent;
 }
 
@@ -240,7 +241,7 @@ header h3 {
 .shipping {
     width: 94%;
     height: 175px;
-    padding: 20px 3% 3%;
+    padding: 20px 3% 25px;
     border-bottom: 1px solid #d8e2ec;
     position: relative;
 }
@@ -322,7 +323,7 @@ hr {
 .line-items {
     background-color: #fafafa;
     width: 96%;
-    padding: 20px 2% 2%;
+    padding: 20px 2% 20px;
 }
 
 table {
@@ -332,7 +333,7 @@ table {
 
 th, td {
     text-align: right;
-    padding: 6px 10px 6px 10px;
+    padding: 6px 10px;
 }
 
 th:nth-of-type(1), td:nth-of-type(1) {
@@ -393,5 +394,83 @@ footer {
 
     .content header img {
         display: inline;
+    }
+}
+
+@media (max-width: 600px) {
+    .shipping {
+        position: relative;
+        height: auto;
+    }
+
+    .shipping ul {
+        width: 50%;
+        text-align: left;
+        display: block;
+        margin-top: -30px;
+        padding-left: 0;
+    }
+
+    .shipping ul:nth-of-type(2) {
+        position: absolute;
+        left: 3%;
+        top: 90px;
+
+    }
+
+    .shipping li {
+        margin-top: 40px;
+        text-align: left;
+        margin-left: 0;
+        width: 250px;
+    }
+
+    #processorInfContainer .shipping {
+        height: 310px;
+    }
+
+    #processorInfContainer .shipping ul {
+        margin-top: -10px;
+    }
+
+    table {
+        border: 0;
+    }
+
+    table tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+    table td {
+        display: block;
+    }
+
+    table td::before {
+        content: attr(data-label);
+        float: left;
+        white-space: pre;
+    }
+
+    table td:last-child {
+        border-bottom: 0;
+    }
+
+    th {
+        display: none;
+    }
+
+    th:nth-of-type(1) {
+        display: block;
+    }
+
+}
+
+@media (max-width: 375px) {
+    #processorInfContainer .pictureBg {
+        margin-left: calc(100% - 75px);
+    }
+
+    #processorInfContainer .shipping {
+        height: 510px;
     }
 }
