@@ -3,21 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>ITechArt</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="aside.css">
+    <link rel="stylesheet" href="content.css">
+    <link rel="stylesheet" href="media.css">
     <script src="index.js" defer></script>
     <meta name="viewport" content="width=device-width; initial-scale=1">
 </head>
 <body>
-<div class="container">
-    <section>
+<main class="container">
         <aside class="hide-menu">
             <header>
-                <img src="./icons/back.png" alt="">
+                <img src="./icons/back.png" alt="back icon">
                 <h3>Orders(10)</h3></header>
-            <form action="">
-                <input type="text" placeholder="Поиск">
-                <img id="searchIcon" src="./icons/search.png" alt="">
-                <img id="refreshIcon" src="./icons/refresh.png" alt="">
+            <form action="" title="Enter an order name or a part of it.">
+                <input type="text" id="input" placeholder="Поиск" pattern="">
+                <img id="closeIcon" src="./icons/close.png" alt="close icon">
+                <img id="searchIcon" src="./icons/search.png" alt="search icon">
+                <img id="refreshIcon" src="./icons/refresh.png" alt="refresh icon">
             </form>
             <div class="orders">
                 <div class="order-content" tabindex="0">
@@ -98,15 +101,15 @@
                     <p class="order-status">In time</p>
                 </div>
             </div>
-            <img class="footer-img" src="./icons/align.png" alt="">
-            <img class="footer-img" src="./icons/filter.png" alt="">
+            <img class="footer-img" src="./icons/align.png" alt="align icon">
+            <img class="footer-img" src="./icons/filter.png" alt="filter icon">
         </aside>
         <div class="content">
             <header>
-                <img id="menuBtn" src="./icons/open-menu.png" alt="">
+                <img id="menuBtn" src="./icons/open-menu.png" alt="menu icon">
                 <h3>Order</h3>
             </header>
-            <div class="order-info">
+            <section class="order-info">
                 <h2>Order 7918</h2>
                 <br>
                 <p>Customer: Tortuga Restarante</p>
@@ -119,16 +122,16 @@
                 </p>
                 <div id="truckBtn" class="bottom-line">
                     <div class="circle circle-active">
-                        <img src="./icons/delivery-truck.png" alt="">
+                        <img src="./icons/delivery-truck.png" alt="delivery-truck icon">
                     </div>
                 </div>
                 <div id="personBtn" class="bottom-line">
                     <div class="circle">
-                        <img src="./icons/avatar.png" alt="">
+                        <img src="./icons/avatar.png" alt="person icon">
                     </div>
                 </div>
-            </div>
-            <div id="shippingContainer">
+            </section>
+            <article id="shippingContainer">
                 <div class="shipping">
                     <h3>Shipping Adress</h3>
                     <br>
@@ -143,15 +146,15 @@
                         </ul>
                         <ul>
                             <li>ExcellentParcel</li>
-                            <li>Tottenham Court Road</li>
+                            <li>Tottenham</li>
                             <li>N170AA London</li>
                             <li>Greater London</li>
                             <li>United Kingdom</li>
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div id="processorInfContainer">
+            </article>
+            <article id="processorInfContainer">
                 <div class="shipping">
                     <h3>Processor information</h3>
                     <br>
@@ -168,18 +171,18 @@
                             <li>Jack Smith</li>
                             <li>7424</li>
                             <li>Developer</li>
-                            <li>0178116348</li>
+                            <li><a href="tel:0178116348">0178116348</a></li>
                         </ul>
                     </div>
                     <div class="picture">
                         <h4>Picture</h4>
                         <div class="pictureBg">
-                            <img src="./icons/avatar.png" alt="">
+                            <img src="./icons/avatar.png" alt="person icon">
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="line-items">
+            </article>
+            <article class="line-items">
                 <h3>Line items(4)</h3>
                 <table>
                     <tr>
@@ -191,7 +194,8 @@
                     <tr>
                         <td><h4>Aniseed Syrup</h4>
                             <span>1412</span></td>
-                        <br><td data-label="Unit Price"><b>65.89</b> EUR</td>
+                        <br>
+                        <td data-label="Unit Price"><b>65.89</b> EUR</td>
                         <td data-label="Quantity">899</td>
                         <td data-label="Total"><b>59 235,11</b> EUR</td>
                     </tr>
@@ -217,12 +221,11 @@
                         <td data-label="Total"><b>59 235,11</b> EUR</td>
                     </tr>
                 </table>
-            </div>
+            </article>
         </div>
-    </section>
-</div>
+</main>
 <footer>
-    <img class="footer-img" src="./icons/mail.png" alt="">
+    <img class="footer-img" src="./icons/mail.png" alt="mail icon">
 </footer>
 </body>
 </html>

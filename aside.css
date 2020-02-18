@@ -1,0 +1,111 @@
+aside {
+    min-width: 340px;
+    height: 100%;
+    flex: 1.3;
+    position: relative;
+}
+
+header {
+    height: 32px;
+    text-align: center;
+    padding-top: 8px;
+}
+
+header img {
+    width: 15px;
+    position: absolute;
+    left: 10px;
+    top: 12px;
+}
+
+form {
+    text-align: center;
+}
+
+form img {
+    width: 16px;
+    position: absolute;
+    right: 40px;
+    margin-top: 5px;
+}
+
+form #refreshIcon {
+    right: 15px;
+}
+
+form input {
+    height: 20px;
+    width: calc(94% - 50px);
+    padding-right: 50px;
+    font-style: italic;
+    text-indent: 10px;
+    z-index: -1;
+}
+
+form input:focus {
+    outline: 1px dotted black;
+    outline-offset: -3px;
+}
+
+.orders {
+    margin-top: 5px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100% - 71px);
+}
+
+.orders::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: white;
+}
+
+.orders::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+.orders::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .5);
+}
+
+.order-content {
+    width: 90%;
+    padding: 4% 5% 1%;
+    height: auto;
+    border-bottom: 2px solid #d8e2ec;
+    position: relative;
+}
+
+.order-content:hover {
+    background-color: #EEEEEE;
+}
+
+.order-content:focus {
+    background-color: #e8eff7;
+    outline: 1px dotted black;
+}
+
+.order-content h3 {
+    width: calc(100% - 130px);
+}
+
+.order-content p {
+    width: calc(100% - 70px);
+}
+
+.date {
+    position: absolute;
+    top: 12px;
+    left: 200px;
+    display: inline-block;
+    width: auto;
+}
+
+.order-status {
+    position: absolute;
+    top: 35px;
+    left: 270px;
+    display: inline-block;
+    width: auto;
+}
