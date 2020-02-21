@@ -94,12 +94,12 @@ header h3 {
     height: 70px;
 }
 
-.bottom-line:nth-of-type(2) {
-    left: calc(7% + 50px);
+.bottom-line:nth-of-type(3) {
+    left: calc(6% + 60px);
     border-bottom: 3px solid transparent;
 }
 
-.bottom-line:nth-of-type(1) {
+.bottom-line:nth-of-type(2) {
     border-bottom: 3px solid #738fa4;
 }
 

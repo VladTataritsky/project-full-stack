@@ -79,6 +79,7 @@ form input:focus {
 
 .order-content:hover {
     background-color: #EEEEEE;
+    cursor: pointer;
 }
 
 .order-content:focus {
@@ -88,10 +89,16 @@ form input:focus {
 
 .order-content h3 {
     width: calc(100% - 130px);
+    pointer-events: none
+}
+
+.order-content h2 {
+    pointer-events: none
 }
 
 .order-content p {
     width: calc(100% - 70px);
+    pointer-events: none
 }
 
 .date {
