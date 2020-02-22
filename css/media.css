@@ -1,5 +1,5 @@
 @media (max-width: 1100px) {
-    .content header {
+    .content-header {
         max-width: 1100px;
         width: 100vw;
     }
@@ -12,18 +12,18 @@
         display: none;
     }
 
-    .content header img {
+    .content-header img {
         display: inline;
     }
 }
 
 @media (max-width: 600px) {
-    .shipping {
+    .shipping-block {
         position: relative;
         height: auto;
     }
 
-    .shipping ul {
+    .shipping-block ul {
         width: 50%;
         text-align: left;
         display: block;
@@ -31,28 +31,28 @@
         padding-left: 0;
     }
 
-    .shipping ul:nth-of-type(2) {
+    .shipping-block ul:nth-of-type(2) {
         position: absolute;
         left: 3%;
         top: 90px;
 
     }
 
-    .shipping li {
+    .shipping-block li {
         margin-top: 40px;
         text-align: left;
         margin-left: 0;
         width: 250px;
     }
 
-    #processorInfContainer .shipping {
+    #processorInfContainer .shipping-block {
         height: 310px;
     }
 
-    #processorInfContainer .shipping ul {
+    #processorInfContainer .shipping-block ul {
         margin-top: -30px;
     }
-    #processorInfContainer .shipping ul:nth-of-type(2){
+    #processorInfContainer .shipping-block ul:nth-of-type(2){
         margin-top: 5px;
     }
 
@@ -93,7 +93,7 @@
         margin-left: calc(45vw - 75px);
     }
 
-    #processorInfContainer .shipping {
+    #processorInfContainer .shipping-block {
         height: 510px;
     }
 }

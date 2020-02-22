@@ -11,39 +11,30 @@
     <meta name="viewport" content="width=device-width; initial-scale=1">
 </head>
 <body>
-<main class="container">
-    <aside class="hide-menu">
-        <header>
+<main class="main-container">
+    <aside class="sidebar hide-menu">
+        <header class="aside-header">
             <img src="./icons/back.png" alt="back icon">
-            <h3 class="orders-quantity">Orders(0)</h3></header>
-        <form action="" title="Enter an order name or a part of it.">
+            <h3 class="js-orders-quantity"></h3>
+        </header>
+        <form class="sidebar-form" action="" title="Enter an order name or a part of it.">
             <input type="text" id="input" placeholder="Поиск" pattern="">
             <img id="closeIcon" src="./icons/close.png" alt="close icon">
             <img id="searchIcon" src="./icons/search.png" alt="search icon">
             <img id="refreshIcon" src="./icons/refresh.png" alt="refresh icon">
         </form>
-        <div class="orders">
+        <div class="orders-list">
         </div>
         <img class="footer-img" src="./icons/align.png" alt="align icon">
         <img class="footer-img" src="./icons/filter.png" alt="filter icon">
     </aside>
-    <div class="content">
-        <header>
+    <div class="content-block">
+        <header class="content-header">
             <img id="menuBtn" src="./icons/open-menu.png" alt="menu icon">
             <h3>Order</h3>
         </header>
         <section class="order-info">
-            <div class="order-info-data">
-                <h2>Order 7918</h2>
-                <br>
-                <p>Customer: Tortuga Restarante</p>
-                <p>Ordered: 18 sep 2016</p>
-                <p>Shipped: 26 sep 2016</p>
-                <p class="price">150 935,13<br>
-                    <small>
-                        <small>EUR</small>
-                    </small>
-                </p>
+            <div class="js-order-info-data">
             </div>
             <div id="truckBtn" class="bottom-line">
                 <div class="circle circle-active">
@@ -57,7 +48,7 @@
             </div>
         </section>
         <article id="shippingContainer">
-            <div class="shipping">
+            <div class="shipping-block">
                 <h3>Shipping Adress</h3>
                 <br>
                 <hr>
@@ -69,22 +60,17 @@
                         <li>Region:</li>
                         <li>Country:</li>
                     </ul>
-                    <ul class="ship-to-data">
-                        <li>ExcellentParcel</li>
-                        <li>Tottenham</li>
-                        <li>N170AA London</li>
-                        <li>Greater London</li>
-                        <li>United Kingdom</li>
+                    <ul class="js-ship-to-data">
                     </ul>
                 </div>
             </div>
         </article>
         <article id="processorInfContainer">
-            <div class="shipping">
+            <div class="shipping-block">
                 <h3>Processor information</h3>
                 <br>
                 <hr>
-                <div class="details">
+                <div class="details-block">
                     <h4>Details</h4>
                     <ul>
                         <li>Name:</li>
@@ -92,14 +78,10 @@
                         <li>Job Title:</li>
                         <li>Phone:</li>
                     </ul>
-                    <ul class="customer-info">
-                        <li>Jack Smith</li>
-                        <li>7424</li>
-                        <li>Developer</li>
-                        <li><a href="tel:0178116348">0178116348</a></li>
+                    <ul class="js-customer-info">
                     </ul>
                 </div>
-                <div class="picture">
+                <div class="picture-wrapper">
                     <h4>Picture</h4>
                     <div class="pictureBg">
                         <img src="./icons/avatar.png" alt="person icon">
@@ -108,42 +90,8 @@
             </div>
         </article>
         <article class="line-items">
-            <h3 class="line-items-quantity">Line items(4)</h3>
-            <table class="product-table-data">
-                <tr>
-                    <th>Product</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
-                </tr>
-                <tr>
-                    <td><h4>Aniseed Syrup</h4>
-                        <span>1412</span></td>
-                    <td data-label="Unit Price"><b>65.89</b> EUR</td>
-                    <td data-label="Quantity">899</td>
-                    <td data-label="Total"><b>59 235,11</b> EUR</td>
-                </tr>
-                <tr>
-                    <td><h4>Aniseed Syrup</h4>
-                        <span>1412</span></td>
-                    <td data-label="Unit Price"><b>65.89</b> EUR</td>
-                    <td data-label="Quantity">899</td>
-                    <td data-label="Total"><b>59 235,11</b> EUR</td>
-                </tr>
-                <tr>
-                    <td><h4>Aniseed Syrup</h4>
-                        <span>1412</span></td>
-                    <td data-label="Unit Price"><b>65.89</b> EUR</td>
-                    <td data-label="Quantity">899</td>
-                    <td data-label="Total"><b>59 235,11</b> EUR</td>
-                </tr>
-                <tr>
-                    <td><h4>Aniseed Syrup</h4>
-                        <span>1412</span></td>
-                    <td data-label="Unit Price"><b>65.89</b> EUR</td>
-                    <td data-label="Quantity">899</td>
-                    <td data-label="Total"><b>59 235,11</b> EUR</td>
-                </tr>
+            <h3 class="js-line-items-quantity"></h3>
+            <table class="js-product-table-data">
             </table>
         </article>
     </div>

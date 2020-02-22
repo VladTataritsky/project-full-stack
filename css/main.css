@@ -24,7 +24,7 @@ body {
     overflow: hidden;
 }
 
-.container {
+.main-container {
     max-width: 1400px;
     height: calc(100vh - 40px);
     margin: 0 auto;

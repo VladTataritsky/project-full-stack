@@ -204,11 +204,11 @@ const Orders = [
 
 let orderIndex = 0;
 const orderInfoFn = () => {
-  document.getElementsByClassName('orders-quantity')[0].innerHTML = `Orders(${Orders.length})`;
-  document.getElementsByClassName('line-items-quantity')[0].innerHTML = `Line items(${Orders[orderIndex].products.length})`;
+  document.getElementsByClassName('js-orders-quantity')[0].innerHTML = `Orders(${Orders.length})`;
+  document.getElementsByClassName('js-line-items-quantity')[0].innerHTML = `Line items(${Orders[orderIndex].products.length})`;
 
 
-  let orderInfoData = document.getElementsByClassName('order-info-data')[0];
+  let orderInfoData = document.getElementsByClassName('js-order-info-data')[0];
   orderInfoData.innerHTML = ` <h2>Order ${Orders[orderIndex].id}</h2>
                 <br>
                 <p>Customer: ${Orders[orderIndex].OrderInfo.customer}</p>
@@ -218,7 +218,7 @@ const orderInfoFn = () => {
                 </p>`;
 
 
-  let shipToData = document.getElementsByClassName('ship-to-data')[0];
+  let shipToData = document.getElementsByClassName('js-ship-to-data')[0];
   shipToData.innerHTML = `<li>${Orders[orderIndex].ShipTo.name}</li>
                         <li>${Orders[orderIndex].ShipTo.Address}</li>
                         <li>${Orders[orderIndex].ShipTo.ZIP}</li>
@@ -226,14 +226,14 @@ const orderInfoFn = () => {
                         <li>${Orders[orderIndex].ShipTo.Country}</li>`;
 
 
-  let customerInfo = document.getElementsByClassName('customer-info')[0];
+  let customerInfo = document.getElementsByClassName('js-customer-info')[0];
   customerInfo.innerHTML = `<li>${Orders[orderIndex].CustomerInfo.firstName} ${Orders[orderIndex].CustomerInfo.lastName}</li>
                         <li>${Orders[orderIndex].CustomerInfo.address}</li>
                         <li>Developer</li>
                         <li><a href="tel:${Orders[orderIndex].CustomerInfo.phone}">${Orders[orderIndex].CustomerInfo.phone}</a></li>`;
 
 
-  let productTableData = document.getElementsByClassName('product-table-data')[0];
+  let productTableData = document.getElementsByClassName('js-product-table-data')[0];
   productTableData.innerHTML = ` <tr>
                     <th>Product</th>
                     <th>Unit Price</th>
@@ -242,11 +242,11 @@ const orderInfoFn = () => {
                 </tr>`;
   let fullPrice = 0;
   Orders[orderIndex].products.forEach((el) => {
-    fullPrice += parseInt(el.totalPrice);
+    fullPrice += parseFloat(el.totalPrice);
     document.getElementsByClassName('price')[0].innerHTML = `${fullPrice}<br>
     <small>
     <small>${el.currency}</small>
-    </small>`
+    </small>`;
     let tr = document.createElement('tr');
     tr.innerHTML = `<td><h4>${el.name}</h4>
                         <span>${el.id}</span></td>
@@ -272,7 +272,7 @@ const getId = () => {
 getId();
 
 const refreshData = () => {
-  document.getElementsByClassName('orders')[0].innerHTML = '';
+  document.getElementsByClassName('orders-list')[0].innerHTML = '';
   Orders.forEach((el) => {
     let orderContent = document.createElement('div');
     orderContent.classList.add('order-content');
@@ -284,7 +284,7 @@ const refreshData = () => {
                 <p>Shipped: ${el.OrderInfo.shippedAt}</p>
                 <h2 class="date">${el.OrderInfo.createdAt}</h2>
                 <p class="order-status">${el.OrderInfo.status}</p>`;
-    document.getElementsByClassName('orders')[0].appendChild(orderContent);
+    document.getElementsByClassName('orders-list')[0].appendChild(orderContent);
     getId();
   })
 };
