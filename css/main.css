@@ -1,3 +1,5 @@
+/* General page styles*/
+
 body, h1, h2, h3, h4, h5, h6 {
     margin: 0;
     padding: 0;
@@ -6,14 +8,6 @@ body, h1, h2, h3, h4, h5, h6 {
 
 .red {
     color: red;
-}
-
-p {
-    color: grey;
-}
-
-img {
-    cursor: pointer;
 }
 
 body {
@@ -25,14 +19,42 @@ body {
 }
 
 .main-container {
+    display: flex;
     max-width: 1400px;
     height: calc(100vh - 40px);
     margin: 0 auto;
     background-color: white;
-    display: flex;
 }
 
-footer {
+.main-container img {
+    cursor: pointer;
+}
+
+.main-header {
+    max-width: 1060px;
+    padding-left: 340px;
+    width: calc(100% - 320px);
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #eff4f8;
+    border-bottom: 1px solid #d8e2ec;
+    position: fixed;
+    top: -2px;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.main-header h3 {
+    padding-top: 3px;
+}
+
+.main-header img {
+    left: 10px;
+    display: none;
+}
+
+.main-footer {
     max-width: 1400px;
     height: 38px;
     margin: 0 auto;
@@ -49,11 +71,6 @@ footer {
     padding-right: 20px;
 }
 
-#processorInfContainer {
-    display: none;
-}
 
-#closeIcon {
-    display: none;
-}
+
 

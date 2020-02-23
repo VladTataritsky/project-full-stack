@@ -1,19 +1,36 @@
+/* Styles for small screens. Values were taken as max-width 1100px, 600px*/
+
 @media (max-width: 1100px) {
-    .content-header {
+    .main-header {
         max-width: 1100px;
         width: 100vw;
+        padding-left: 0;
+    }
+
+    .main-header img {
+        display: inline;
     }
 
     .show-menu {
-        display: block;
+        visibility: visible;
+        opacity: 1;
+        flex: 1 calc(100vw - 60px);
     }
 
     .hide-menu {
-        display: none;
+        flex: 0;
+        width: 0;
+        visibility: hidden;
+        opacity: 0;
     }
 
-    .content-header img {
-        display: inline;
+    .products-table th:nth-of-type(1), .products-table td:nth-of-type(1) {
+        min-width: 290px;
+    }
+
+    .products-table td h4 {
+        width: 290px;
+
     }
 }
 
@@ -27,7 +44,7 @@
         width: 50%;
         text-align: left;
         display: block;
-        margin-top: -30px;
+        margin-top: -15px;
         padding-left: 0;
     }
 
@@ -35,6 +52,7 @@
         position: absolute;
         left: 3%;
         top: 90px;
+        margin-left: 0;
 
     }
 
@@ -44,56 +62,66 @@
         margin-left: 0;
         width: 250px;
     }
-
-    #processorInfContainer .shipping-block {
-        height: 310px;
+    #processorInfContainer .shipping-block ul:nth-of-type(1) {
+        width: 50%;
+        position: absolute;
+        left: 3%;
+        top: 70px;
+    }
+    #processorInfContainer ul{
+        margin-top: 0;
     }
 
     #processorInfContainer .shipping-block ul {
-        margin-top: -30px;
+        margin-top: 10px;
     }
-    #processorInfContainer .shipping-block ul:nth-of-type(2){
-        margin-top: 5px;
+    .details-block-wrapper {
+        flex-direction: column;
+    }
+    .picture-wrapper{
+        position: relative;
+        top: 240px;
+    }
+    #processorInfContainer .shipping-block {
+        height: 510px;
+    }
+    #processorInfContainer .pictureBg {
+        margin-left: calc(45vw - 75px);
     }
 
-    table {
+    .products-table {
         border: 0;
     }
 
-    table tr {
+    .products-table tr {
         border-bottom: 1px solid #ddd;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: flex-start;
     }
 
-    table td {
-        display: block;
-    }
-
-    table td::before {
+    .products-table td::before {
         content: attr(data-label);
         float: left;
         white-space: pre;
     }
 
-    table td:last-child {
+    .products-table td:last-child {
         border-bottom: 0;
     }
 
-    th {
+    .products-table th {
         display: none;
     }
 
-    th:nth-of-type(1) {
+    .products-table th:nth-of-type(1) {
         display: block;
+        width: 96%;
     }
 
-}
-
-@media (max-width: 375px) {
-    #processorInfContainer .pictureBg {
-        margin-left: calc(45vw - 75px);
+    .products-table td h4 {
+        width: 90vw;
     }
 
-    #processorInfContainer .shipping-block {
-        height: 510px;
-    }
 }

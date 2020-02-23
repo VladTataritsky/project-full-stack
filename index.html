@@ -7,10 +7,15 @@
     <link rel="stylesheet" href="css/aside.css">
     <link rel="stylesheet" href="css/content.css">
     <link rel="stylesheet" href="css/media.css">
+    <script src="js/buttons.js" defer></script>
     <script src="js/index.js" defer></script>
     <meta name="viewport" content="width=device-width; initial-scale=1">
 </head>
 <body>
+<header class="main-header">
+    <img id="menuBtn" src="./icons/open-menu.png" alt="menu icon">
+    <h3>Order</h3>
+</header>
 <main class="main-container">
     <aside class="sidebar hide-menu">
         <header class="aside-header">
@@ -18,7 +23,7 @@
             <h3 class="js-orders-quantity"></h3>
         </header>
         <form class="sidebar-form" action="" title="Enter an order name or a part of it.">
-            <input type="text" id="input" placeholder="Поиск" pattern="">
+            <input type="text" id="sidebarInput" placeholder="Поиск" pattern="">
             <img id="closeIcon" src="./icons/close.png" alt="close icon">
             <img id="searchIcon" src="./icons/search.png" alt="search icon">
             <img id="refreshIcon" src="./icons/refresh.png" alt="refresh icon">
@@ -29,10 +34,7 @@
         <img class="footer-img" src="./icons/filter.png" alt="filter icon">
     </aside>
     <div class="content-block">
-        <header class="content-header">
-            <img id="menuBtn" src="./icons/open-menu.png" alt="menu icon">
-            <h3>Order</h3>
-        </header>
+
         <section class="order-info">
             <div class="js-order-info-data">
             </div>
@@ -52,7 +54,7 @@
                 <h3>Shipping Adress</h3>
                 <br>
                 <hr>
-                <div>
+                <div class="shipping-lists">
                     <ul>
                         <li>Name:</li>
                         <li>Street:</li>
@@ -70,33 +72,35 @@
                 <h3>Processor information</h3>
                 <br>
                 <hr>
-                <div class="details-block">
-                    <h4>Details</h4>
-                    <ul>
-                        <li>Name:</li>
-                        <li>Employee ID:</li>
-                        <li>Job Title:</li>
-                        <li>Phone:</li>
-                    </ul>
-                    <ul class="js-customer-info">
-                    </ul>
-                </div>
-                <div class="picture-wrapper">
-                    <h4>Picture</h4>
-                    <div class="pictureBg">
-                        <img src="./icons/avatar.png" alt="person icon">
+                <div class="details-block-wrapper">
+                    <div class="details-block">
+                        <h4>Details</h4>
+                        <ul>
+                            <li>Name:</li>
+                            <li>Employee ID:</li>
+                            <li>Job Title:</li>
+                            <li>Phone:</li>
+                        </ul>
+                        <ul class="js-customer-info">
+                        </ul>
+                    </div>
+                    <div class="picture-wrapper">
+                        <h4>Picture</h4>
+                        <div class="pictureBg">
+                            <img src="./icons/avatar.png" alt="person icon">
+                        </div>
                     </div>
                 </div>
             </div>
         </article>
         <article class="line-items">
             <h3 class="js-line-items-quantity"></h3>
-            <table class="js-product-table-data">
+            <table class="products-table">
             </table>
         </article>
     </div>
 </main>
-<footer>
+<footer class="main-footer">
     <img class="footer-img" src="./icons/mail.png" alt="mail icon">
 </footer>
 </body>

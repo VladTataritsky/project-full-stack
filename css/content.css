@@ -1,6 +1,8 @@
+/* Styles for content part of page, which includes customer info, ship and order info, table with product info*/
+
 .content-block {
     height: calc(100% - 40px);
-    flex: 4;
+    flex: 1;
     overflow-y: auto;
     margin-top: 40px;
 }
@@ -22,25 +24,6 @@
 .content-block::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .5);
-}
-
-.content-header {
-    max-width: 1055px;
-    background-color: #eff4f8;
-    border-bottom: 1px solid #d8e2ec;
-    position: fixed;
-    top: 0;
-    width: calc(100% - 320px);
-    z-index: 11;
-}
-
-.content-header h3 {
-    padding-top: 3px;
-}
-
-.content-header img {
-    left: 10px;
-    display: none;
 }
 
 .order-info {
@@ -83,7 +66,7 @@
 }
 
 .bottom-line {
-    display: inline-block;
+    display: flex;
     position: absolute;
     bottom: 0;
     width: 52px;
@@ -115,20 +98,23 @@ hr {
     margin-top: -10px;
 }
 
-.shipping-block div {
+.shipping-block .shipping-lists {
     margin-top: -10px;
+    display: flex;
+    flex-direction: row;
 }
 
-.shipping-block ul:nth-of-type(1) {
+.shipping-block ul {
     width: 21%;
     text-align: right;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
 }
 
 .shipping-block ul:nth-of-type(2) {
     width: 50%;
     padding: 0;
-    display: inline-block;
+    margin-left: 10px;
     text-align: left;
     color: black;
 }
@@ -144,7 +130,7 @@ hr {
     text-decoration: none;
 }
 
-#processorInfContainer .shipping-block ul:nth-of-type(1) {
+#processorInfContainer .shipping-block ul {
     width: 25%;
 }
 
@@ -159,8 +145,13 @@ hr {
 .shipping-block .details-block {
     width: 55%;
     margin-top: 10px;
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
     vertical-align: top;
+}
+
+.details-block-wrapper {
+    display: flex;
 }
 
 .shipping-block h4 {
@@ -182,6 +173,7 @@ hr {
 
 .shipping-block .picture-wrapper img {
     width: 80px;
+    height: 80px;
     filter: invert(1);
     margin-top: 35px;
     margin-left: 35px;
@@ -193,34 +185,50 @@ hr {
     padding: 20px 2% 20px;
 }
 
-table {
+.products-table {
     border-collapse: collapse;
     width: 100%;
-}
-
-th, td {
-    text-align: right;
-    padding: 6px 20px;
-    width: calc(100% - 40px);
-}
-
-th:nth-of-type(1), td:nth-of-type(1) {
-    text-align: left;
-}
-
-td {
+    display: flex;
+    flex-direction: column;
     background-color: white;
 }
 
-th {
+.products-table th, .products-table td {
+    text-align: right;
+    padding: 6px 10px;
+    width: calc(100% - 20px);
+    justify-content: space-around;
+    flex: 2;
+}
+
+.products-table th:nth-of-type(1),.products-table td:nth-of-type(1) {
+    text-align: left;
+    flex: 6;
+    width: 300px;
+}
+
+.products-table td h4{
+    width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.products-table tr {
+    border-top: 1px solid lightgrey;
+    display: flex;
+    align-items: center;
+}
+
+.products-table tbody{
     background-color: #f8f8f8;
 }
 
-tr {
-    border-top: 1px solid lightgrey;
-}
-
-table h4 {
+.products-table h4 {
     padding-bottom: 4px;
     color: black;
+}
+
+#processorInfContainer {
+    display: none;
 }
