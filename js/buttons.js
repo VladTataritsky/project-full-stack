@@ -19,6 +19,10 @@ const menuState = () => {
   }
 };
 menuBtn.addEventListener('click', menuState);
+document.getElementById('backImg').addEventListener('click', () => {
+  aside.classList.remove('show-menu');
+  aside.classList.add('hide-menu');
+});
 
 // function which switches shipping state to processor information block
 personBtn.addEventListener('click', () => {
@@ -43,7 +47,7 @@ truckBtn.addEventListener('click', () => {
 // function which removes refresh icon by focusing on sidebar input
 sidebarInput.addEventListener('focus', () => {
   document.getElementById('refreshIcon').style.display = 'none';
-  document.getElementById('searchIcon').style.right = 15 + 'px';
+  document.getElementById('searchIcon').style.right = 12 + 'px';
   // sidebarInput.length !== 0 ? closeIcon.style.display = 'inline' : closeIcon.style.display = 'none';
 });
 
@@ -51,7 +55,7 @@ sidebarInput.addEventListener('focus', () => {
 sidebarInput.addEventListener('blur', () => {
   closeIcon.style.display = 'none';
   document.getElementById('refreshIcon').style.display = 'inline';
-  document.getElementById('searchIcon').style.right = 40 + 'px';
+  document.getElementById('searchIcon').style.right = 37 + 'px';
 });
 
 // function which removes close icon if sidebar input value is empty

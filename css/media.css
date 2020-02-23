@@ -8,13 +8,13 @@
     }
 
     .main-header img {
-        display: inline;
+        display: block;
     }
 
     .show-menu {
         visibility: visible;
         opacity: 1;
-        flex: 1 calc(100vw - 60px);
+        flex: 1 100vw;
     }
 
     .hide-menu {

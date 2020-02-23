@@ -1,5 +1,5 @@
 // import {Orders} from 'js/data'
-
+const ordersList = document.getElementsByClassName('orders-list')[0];
 const Orders = [
   {
     id: "1",
@@ -151,10 +151,10 @@ const Orders = [
 
 
 let orderIndex = 0;
+
 const orderInfoFn = () => {
   document.getElementsByClassName('js-orders-quantity')[0].innerHTML = `Orders(${Orders.length})`;
   document.getElementsByClassName('js-line-items-quantity')[0].innerHTML = `Line items(${Orders[orderIndex].products.length})`;
-
 
   let orderInfoData = document.getElementsByClassName('js-order-info-data')[0];
   orderInfoData.innerHTML = ` <h2>Order ${Orders[orderIndex].id}</h2>
@@ -220,7 +220,7 @@ const getId = () => {
 getId();
 
 const refreshData = () => {
-  document.getElementsByClassName('orders-list')[0].innerHTML = '';
+  ordersList.innerHTML = '';
   Orders.forEach((el) => {
     let orderContent = document.createElement('div');
     orderContent.classList.add('order-content');
@@ -232,9 +232,44 @@ const refreshData = () => {
                 <p>Shipped: ${el.OrderInfo.shippedAt}</p>
                 <h2 class="date">${el.OrderInfo.createdAt}</h2>
                 <p class="order-status">${el.OrderInfo.status}</p>`;
-    document.getElementsByClassName('orders-list')[0].appendChild(orderContent);
+    ordersList.appendChild(orderContent);
     getId();
   })
 };
 refreshData();
 document.getElementById('refreshIcon').addEventListener('click', refreshData);
+
+sidebarInput.addEventListener('input', () => {
+  const arr = [];
+  let uniqueArr = [];
+  Orders.forEach((el, i) => {
+    for (let key in el.OrderInfo) {
+      if (el.OrderInfo[key].toLowerCase().includes(sidebarInput.value.toLowerCase())) {
+        arr.push(i)
+      }
+    }
+    uniqueArr = arr.filter(function (item, pos) {
+      return arr.indexOf(item) === pos;
+    });
+  });
+  ordersList.innerHTML = '';
+  if (uniqueArr.length === 0) {
+    ordersList.innerHTML = '<h3 class="no-results">No results</h3>';
+  } else {
+    uniqueArr.forEach((index) => {
+      let orderContent = document.createElement('div');
+      orderContent.classList.add('order-content');
+      orderContent.tabIndex = 0;
+      orderContent.setAttribute('data-id', Orders[index].id);
+      orderContent.innerHTML =
+        `<h3>Order ${Orders[index].id}</h3>
+                <p>${Orders[index].OrderInfo.customer}</p>
+                <p>Shipped: ${Orders[index].OrderInfo.shippedAt}</p>
+                <h2 class="date">${Orders[index].OrderInfo.createdAt}</h2>
+                <p class="order-status">${Orders[index].OrderInfo.status}</p>`;
+      ordersList.appendChild(orderContent);
+      getId()
+    })
+  }
+})
+
