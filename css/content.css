@@ -5,6 +5,7 @@
     flex: 1;
     overflow-y: auto;
     margin-top: 40px;
+    transition: opacity 0.2s;
 }
 
 .content-block h3 {
@@ -184,6 +185,35 @@ hr {
     width: 96%;
     padding: 20px 2% 20px;
 }
+
+.products-form {
+    text-align: center;
+    width: 300px;
+}
+
+.products-form img {
+    width: 16px;
+    position: relative;
+    top: -21px;
+    left: 125px;
+    padding-right: 3px;
+}
+
+
+#productsInput{
+    height: 20px;
+    width: calc(98% - 50px);
+    padding-right: 50px;
+    font-style: italic;
+    text-indent: 10px;
+    z-index: -1;
+}
+
+#productsInput:focus {
+    outline: 1px dotted black;
+    outline-offset: -3px;
+}
+
 
 .products-table {
     border-collapse: collapse;

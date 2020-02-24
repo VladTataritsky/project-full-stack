@@ -7,7 +7,7 @@
     <link rel="stylesheet"  href="css/aside.css" >
     <link rel="stylesheet" href="css/content.css">
     <link rel="stylesheet" href="css/media.css">
-    <script src="js/buttons.js" defer></script>
+    <script src="js/style.js" defer></script>
     <script src="js/index.js" defer></script>
     <meta name="viewport" content="width=device-width; initial-scale=1">
 </head>
@@ -17,16 +17,16 @@
     <h3>Order</h3>
 </header>
 <main class="main-container">
-    <aside class="sidebar show-menu">
+    <aside class="sidebar hide-menu">
         <header class="aside-header">
             <img id="backImg" src="./icons/back.png" alt="back icon">
             <h3 class="js-orders-quantity"></h3>
         </header>
         <form class="sidebar-form" action="" title="Enter an order name or a part of it.">
             <input type="text" id="sidebarInput" placeholder="Поиск" pattern="">
-            <img id="closeIcon" src="./icons/close.png" alt="close icon">
-            <img id="searchIcon" src="./icons/search.png" alt="search icon">
-            <img id="refreshIcon" src="./icons/refresh.png" alt="refresh icon">
+            <img class="closeIcon" src="./icons/close.png" alt="close icon">
+            <img class="searchIcon" src="./icons/search.png" alt="search icon">
+            <img class="refreshIcon" src="./icons/refresh.png" alt="refresh icon">
         </form>
         <div class="orders-list">
         </div>
@@ -34,7 +34,6 @@
         <img class="footer-img" src="./icons/filter.png" alt="filter icon">
     </aside>
     <div class="content-block">
-
         <section class="order-info">
             <div class="js-order-info-data">
             </div>
@@ -95,6 +94,12 @@
         </article>
         <article class="line-items">
             <h3 class="js-line-items-quantity"></h3>
+           <form class="products-form" action="" title="Enter an order name or a part of it.">
+                <input type="text" id="productsInput" placeholder="Поиск" pattern="">
+                <img class="closeIcon" src="./icons/close.png" alt="close icon">
+                <img class="searchIcon" src="./icons/search.png" alt="search icon">
+                <img class="refreshIcon" src="./icons/refresh.png" alt="refresh icon">
+            </form>
             <table class="products-table">
             </table>
         </article>

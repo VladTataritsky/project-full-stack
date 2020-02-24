@@ -46,7 +46,7 @@ body {
 }
 
 .main-header h3 {
-    width: calc(100% - 25px);
+    width: calc(100% - 60px);
 }
 
 .main-header img {
@@ -74,7 +74,7 @@ body {
 }
 .no-results{
     text-align: center;
-    margin-top: 20px;
+    margin-top: 8px;
 }
 
 

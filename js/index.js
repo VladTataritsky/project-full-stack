@@ -1,5 +1,7 @@
 // import {Orders} from 'js/data'
-const ordersList = document.getElementsByClassName('orders-list')[0];
+const productsTable = document.getElementsByClassName('products-table')[0];
+const productsInput = document.getElementById('productsInput');
+
 const Orders = [
   {
     id: "1",
@@ -149,6 +151,12 @@ const Orders = [
   }
 ];
 
+const orderFocus = () => {
+  for (let i = 0; i < ordersList.length; i++) {
+    console.log('kek');
+  }
+};
+
 
 let orderIndex = 0;
 
@@ -226,6 +234,7 @@ const refreshData = () => {
     orderContent.classList.add('order-content');
     orderContent.tabIndex = 0;
     orderContent.setAttribute('data-id', el.id);
+    orderContent.setAttribute('onclick', 'focusOrder(event)');
     orderContent.innerHTML =
       `<h3>Order ${el.id}</h3>
                 <p>${el.OrderInfo.customer}</p>
@@ -237,7 +246,7 @@ const refreshData = () => {
   })
 };
 refreshData();
-document.getElementById('refreshIcon').addEventListener('click', refreshData);
+document.getElementsByClassName('refreshIcon')[0].addEventListener('click', refreshData);
 
 sidebarInput.addEventListener('input', () => {
   const arr = [];
@@ -261,6 +270,7 @@ sidebarInput.addEventListener('input', () => {
       orderContent.classList.add('order-content');
       orderContent.tabIndex = 0;
       orderContent.setAttribute('data-id', Orders[index].id);
+      orderContent.setAttribute('onclick', 'focusOrder(event)');
       orderContent.innerHTML =
         `<h3>Order ${Orders[index].id}</h3>
                 <p>${Orders[index].OrderInfo.customer}</p>
@@ -271,5 +281,70 @@ sidebarInput.addEventListener('input', () => {
       getId()
     })
   }
-})
+  document.getElementsByClassName('js-orders-quantity')[0].innerHTML = `Orders(${uniqueArr.length})`;
+});
 
+
+productsInput.addEventListener('input', () => {
+  const arr2 = [];
+  let uniqueArr2 = [];
+  Orders.forEach((elOrd) => {
+    elOrd.products.forEach((item, index) => {
+      for (let key in item) {
+        if (item[key].toLowerCase().includes(productsInput.value.toLowerCase())) {
+          arr2.push(index)
+        }
+      }
+      uniqueArr2 = arr2.filter(function (unItem, pos) {
+        return arr2.indexOf(unItem) === pos;
+      });
+    });
+    let productTableData = document.getElementsByClassName('products-table')[0];
+    if (uniqueArr2.length === 0) {
+      productTableData.innerHTML = '<h3 class="no-results">No results</h3>';
+    } else {
+      productTableData.innerHTML = ` <tr>
+                    <th>Product</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>`;
+      let fullPrice = 0;
+      uniqueArr2.forEach((el) => {
+        fullPrice += parseFloat(elOrd.products[el].totalPrice);
+        document.getElementsByClassName('price')[0].innerHTML = `${fullPrice}<br>
+    <small>
+    <small>${elOrd.products[el].currency}</small>
+    </small>`;
+        let tr = document.createElement('tr');
+        tr.innerHTML = `<td><h4>${elOrd.products[el].name}</h4>
+                        <span>${elOrd.products[el].id}</span></td>
+                    <td data-label="Unit Price"><b>${elOrd.products[el].price}</b> ${elOrd.products[el].currency}</td>
+                    <td data-label="Quantity">${elOrd.products[el].quantity}</td>
+                    <td data-label="Total"><b>${elOrd.products[el].totalPrice}</b> ${elOrd.products[el].currency}</td>`;
+        productTableData.appendChild(tr);
+      })
+    }
+  });
+  document.getElementsByClassName('js-line-items-quantity')[0].innerHTML = `Line items(${uniqueArr2.length})`;
+});
+
+/*for (let i = 0; i < ordersList.childNodes.length; i++) {
+  if (ordersList.childNodes[i].classList.contains('focus-order-content')) {
+    ordersList.childNodes[i].classList.remove('focus-order-content')
+  }
+  ordersList.childNodes[i].addEventListener('click', (event) => {
+    event.target.classList.add('focus-order-content');
+  })
+}*/
+const focusOrder = () => {
+  for (let i = 0; i < ordersList.childNodes.length; i++) {
+    if (ordersList.childNodes[i].classList.contains('focus-order-content')) {
+      ordersList.childNodes[i].classList.remove('focus-order-content')
+    }
+  }
+  event.target.classList.add('focus-order-content');
+  aside.classList.remove('show-menu');
+  aside.classList.add('hide-menu');
+  contentBlock.style.opacity = '1'
+}
