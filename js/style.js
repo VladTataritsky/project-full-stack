@@ -6,24 +6,27 @@ const aside = document.getElementsByTagName('aside')[0];
 const personBtn = document.getElementById('personBtn');
 const truckBtn = document.getElementById('truckBtn');
 const sidebarInput = document.getElementById('sidebarInput');
-const closeIcon = document.getElementsByClassName('closeIcon')[0];
+const productsInput = document.getElementById('productsInput');
+const closeBtn = document.getElementsByClassName('btn-close')[0];
+const closeBtn1 = document.getElementsByClassName('btn-close')[1];
+const header = document.getElementsByClassName('main-header')[0];
 const contentBlock = document.getElementsByClassName('content-block')[0];
 const ordersList = document.getElementsByClassName('orders-list')[0];
 
-/*console.log(ordersList.length)
 
-for(let i = 0; i <= ordersList.length; i++){
-  console.log('kek')
-}*/
 
 // function which shows/hides sidebar by clicking on the menu button
 const menuState = () => {
   if (aside.classList.contains('hide-menu')) {
     aside.classList.remove('hide-menu');
     aside.classList.add('show-menu');
-    if (window.screen.width >= 1100) {
+   /* if (window.screen.width <= 1100) {
       contentBlock.style.opacity = '0'
-    }
+    }*/
+    header.style.paddingLeft = '340px';
+    header.style.width = 'calc(100% - 320px)';
+    header.style.maxWidth = '1060px';
+    menuBtn.style.display = 'none'
   } else {
     aside.classList.remove('show-menu');
     aside.classList.add('hide-menu');
@@ -31,9 +34,20 @@ const menuState = () => {
 };
 menuBtn.addEventListener('click', menuState);
 document.getElementById('backImg').addEventListener('click', () => {
-  aside.classList.remove('show-menu');
-  aside.classList.add('hide-menu');
-  contentBlock.style.opacity = '1'
+  if (aside.classList.contains('show-menu')) {
+    aside.classList.remove('show-menu');
+    aside.classList.add('hide-menu');
+    menuBtn.style.display = 'block';
+    header.style.paddingLeft = '0';
+    header.style.width = '100%';
+    header.style.maxWidth = '1400px';
+    contentBlock.style.opacity = '1'
+  } else {
+    aside.classList.remove('hide-menu');
+    aside.classList.add('show-menu');
+    menuBtn.style.display = 'none';
+    contentBlock.style.opacity = '1'
+  }
 });
 
 // function which switches shipping state to processor information block
@@ -58,19 +72,50 @@ truckBtn.addEventListener('click', () => {
 
 // function which removes refresh icon by focusing on sidebar input
 sidebarInput.addEventListener('focus', () => {
-  document.getElementsByClassName('refreshIcon')[0].style.display = 'none';
-  document.getElementsByClassName('searchIcon')[0].style.right = 12 + 'px';
+  document.getElementsByClassName('btn-refresh')[0].style.display = 'none';
   // sidebarInput.length !== 0 ? closeIcon.style.display = 'inline' : closeIcon.style.display = 'none';
 });
 
 // function which recovers refresh icon by blur on sidebar input
 sidebarInput.addEventListener('blur', () => {
-  closeIcon.style.display = 'none';
-  document.getElementsByClassName('refreshIcon')[0].style.display = 'inline';
-  document.getElementsByClassName('searchIcon')[0].style.right = 37 + 'px';
+  closeBtn.style.display = 'none';
+  document.getElementsByClassName('btn-refresh')[0].style.display = 'inline';
 });
+
+
+// function which removes refresh icon by focusing on sidebar input
+productsInput.addEventListener('focus', () => {
+  document.getElementsByClassName('btn-refresh')[1].style.display = 'none';
+  // sidebarInput.length !== 0 ? closeIcon.style.display = 'inline' : closeIcon.style.display = 'none';
+});
+
+// function which recovers refresh icon by blur on sidebar input
+productsInput.addEventListener('blur', () => {
+  closeBtn1.style.display = 'none';
+  document.getElementsByClassName('btn-refresh')[1].style.display = 'inline';
+});
+
+
 
 // function which removes close icon if sidebar input value is empty
 sidebarInput.addEventListener('input', (event) => {
-  event.target.value !== event.target.pattern ? closeIcon.style.display = 'inline' : closeIcon.style.display = 'none';
+  event.target.value !== event.target.pattern ? closeBtn.style.display = 'inline' : closeBtn.style.display = 'none';
 });
+
+productsInput.addEventListener('input', (event) => {
+  event.target.value !== event.target.pattern ? closeBtn1.style.display = 'inline' : closeBtn1.style.display = 'none';
+});
+
+const focusOrder = () => {
+  for (let i = 0; i < ordersList.childNodes.length; i++) {
+    if (ordersList.childNodes[i].classList.contains('focus-order-content')) {
+      ordersList.childNodes[i].classList.remove('focus-order-content')
+    }
+  }
+  event.target.classList.add('focus-order-content');
+  if (window.screen.width <= 1100) {
+    aside.classList.remove('show-menu');
+    aside.classList.add('hide-menu');
+    contentBlock.style.opacity = '1'
+  }
+};

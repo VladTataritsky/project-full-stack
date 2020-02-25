@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>ITechArt</title>
     <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet"  href="css/aside.css" >
+    <link rel="stylesheet" href="css/aside.css">
     <link rel="stylesheet" href="css/content.css">
     <link rel="stylesheet" href="css/media.css">
     <script src="js/style.js" defer></script>
@@ -17,16 +17,19 @@
     <h3>Order</h3>
 </header>
 <main class="main-container">
-    <aside class="sidebar hide-menu">
+    <aside class="sidebar show-menu">
         <header class="aside-header">
             <img id="backImg" src="./icons/back.png" alt="back icon">
             <h3 class="js-orders-quantity"></h3>
         </header>
         <form class="sidebar-form" action="" title="Enter an order name or a part of it.">
             <input type="text" id="sidebarInput" placeholder="Поиск" pattern="">
-            <img class="closeIcon" src="./icons/close.png" alt="close icon">
-            <img class="searchIcon" src="./icons/search.png" alt="search icon">
-            <img class="refreshIcon" src="./icons/refresh.png" alt="refresh icon">
+            <div class="sidebar-form-buttons">
+                <button class="btn-close"><img class="closeIcon" src="./icons/close.png" alt="close icon"></button>
+                <button class="btn-refresh"><img class="refreshIcon" src="./icons/refresh.png" alt="refresh icon">
+                </button>
+                <button class="btn-search"><img class="searchIcon" src="./icons/search.png" alt="search icon"></button>
+            </div>
         </form>
         <div class="orders-list">
         </div>
@@ -94,11 +97,16 @@
         </article>
         <article class="line-items">
             <h3 class="js-line-items-quantity"></h3>
-           <form class="products-form" action="" title="Enter an order name or a part of it.">
+            <form class="products-form" action="" title="Enter an order name or a part of it.">
                 <input type="text" id="productsInput" placeholder="Поиск" pattern="">
-                <img class="closeIcon" src="./icons/close.png" alt="close icon">
-                <img class="searchIcon" src="./icons/search.png" alt="search icon">
-                <img class="refreshIcon" src="./icons/refresh.png" alt="refresh icon">
+                <div class="products-form-buttons">
+                    <button class="btn-close"><img class="closeIcon" src="./icons/close.png" alt="close icon"></button>
+
+                    <button class="btn-refresh"><img class="refreshIcon" src="./icons/refresh.png" alt="refresh icon">
+                    </button>
+                    <button class="btn-search"><img class="searchIcon" src="./icons/search.png" alt="search icon">
+                    </button>
+                </div>
             </form>
             <table class="products-table">
             </table>

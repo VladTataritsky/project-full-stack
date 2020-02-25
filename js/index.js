@@ -1,6 +1,5 @@
 // import {Orders} from 'js/data'
 const productsTable = document.getElementsByClassName('products-table')[0];
-const productsInput = document.getElementById('productsInput');
 
 const Orders = [
   {
@@ -210,9 +209,8 @@ const orderInfoFn = () => {
                     <td data-label="Quantity">${el.quantity}</td>
                     <td data-label="Total"><b>${el.totalPrice}</b> ${el.currency}</td>`;
     productTableData.appendChild(tr);
+
   })
-
-
 };
 orderInfoFn();
 
@@ -227,7 +225,7 @@ const getId = () => {
 };
 getId();
 
-const refreshData = () => {
+const refreshOrderData = () => {
   ordersList.innerHTML = '';
   Orders.forEach((el) => {
     let orderContent = document.createElement('div');
@@ -245,10 +243,10 @@ const refreshData = () => {
     getId();
   })
 };
-refreshData();
-document.getElementsByClassName('refreshIcon')[0].addEventListener('click', refreshData);
+refreshOrderData()
+document.getElementsByClassName('refreshIcon')[0].addEventListener('click', refreshOrderData);
 
-sidebarInput.addEventListener('input', () => {
+document.getElementsByClassName('btn-search')[0].addEventListener('click', () => {
   const arr = [];
   let uniqueArr = [];
   Orders.forEach((el, i) => {
@@ -257,7 +255,7 @@ sidebarInput.addEventListener('input', () => {
         arr.push(i)
       }
     }
-    uniqueArr = arr.filter(function (item, pos) {
+    uniqueArr = arr.filter((item, pos) => {
       return arr.indexOf(item) === pos;
     });
   });
@@ -285,66 +283,47 @@ sidebarInput.addEventListener('input', () => {
 });
 
 
-productsInput.addEventListener('input', () => {
+document.getElementsByClassName('btn-search')[1].addEventListener('click', () => {
   const arr2 = [];
   let uniqueArr2 = [];
-  Orders.forEach((elOrd) => {
-    elOrd.products.forEach((item, index) => {
-      for (let key in item) {
-        if (item[key].toLowerCase().includes(productsInput.value.toLowerCase())) {
-          arr2.push(index)
-        }
+  Orders[orderIndex].products.forEach((item, index) => {
+    for (let key in item) {
+      if (item[key].toLowerCase().includes(productsInput.value.toLowerCase())) {
+        arr2.push(index)
       }
-      uniqueArr2 = arr2.filter(function (unItem, pos) {
-        return arr2.indexOf(unItem) === pos;
-      });
+    }
+    uniqueArr2 = arr2.filter((unItem, pos) => {
+      return arr2.indexOf(unItem) === pos;
     });
-    let productTableData = document.getElementsByClassName('products-table')[0];
-    if (uniqueArr2.length === 0) {
-      productTableData.innerHTML = '<h3 class="no-results">No results</h3>';
-    } else {
-      productTableData.innerHTML = ` <tr>
+  });
+  let productTableData = document.getElementsByClassName('products-table')[0];
+  if (uniqueArr2.length === 0) {
+    productTableData.innerHTML = '<h3 class="no-results">No results</h3>';
+  } else {
+    productTableData.innerHTML = ` <tr>
                     <th>Product</th>
                     <th>Unit Price</th>
                     <th>Quantity</th>
                     <th>Total</th>
                 </tr>`;
-      let fullPrice = 0;
-      uniqueArr2.forEach((el) => {
-        fullPrice += parseFloat(elOrd.products[el].totalPrice);
-        document.getElementsByClassName('price')[0].innerHTML = `${fullPrice}<br>
+    let fullPrice = 0;
+    uniqueArr2.forEach((el) => {
+      fullPrice += parseFloat(Orders[orderIndex].products[el].totalPrice);
+      document.getElementsByClassName('price')[0].innerHTML = `${fullPrice}<br>
     <small>
-    <small>${elOrd.products[el].currency}</small>
+    <small>${Orders[orderIndex].products[el].currency}</small>
     </small>`;
-        let tr = document.createElement('tr');
-        tr.innerHTML = `<td><h4>${elOrd.products[el].name}</h4>
-                        <span>${elOrd.products[el].id}</span></td>
-                    <td data-label="Unit Price"><b>${elOrd.products[el].price}</b> ${elOrd.products[el].currency}</td>
-                    <td data-label="Quantity">${elOrd.products[el].quantity}</td>
-                    <td data-label="Total"><b>${elOrd.products[el].totalPrice}</b> ${elOrd.products[el].currency}</td>`;
-        productTableData.appendChild(tr);
-      })
-    }
-  });
+      let tr = document.createElement('tr');
+      tr.innerHTML = `<td><h4>${Orders[orderIndex].products[el].name}</h4>
+                        <span>${Orders[orderIndex].products[el].id}</span></td>
+                    <td data-label="Unit Price"><b>${Orders[orderIndex].products[el].price}</b> ${Orders[orderIndex].products[el].currency}</td>
+                    <td data-label="Quantity">${Orders[orderIndex].products[el].quantity}</td>
+                    <td data-label="Total"><b>${Orders[orderIndex].products[el].totalPrice}</b> ${Orders[orderIndex].products[el].currency}</td>`;
+      productTableData.appendChild(tr);
+    })
+  }
   document.getElementsByClassName('js-line-items-quantity')[0].innerHTML = `Line items(${uniqueArr2.length})`;
 });
 
-/*for (let i = 0; i < ordersList.childNodes.length; i++) {
-  if (ordersList.childNodes[i].classList.contains('focus-order-content')) {
-    ordersList.childNodes[i].classList.remove('focus-order-content')
-  }
-  ordersList.childNodes[i].addEventListener('click', (event) => {
-    event.target.classList.add('focus-order-content');
-  })
-}*/
-const focusOrder = () => {
-  for (let i = 0; i < ordersList.childNodes.length; i++) {
-    if (ordersList.childNodes[i].classList.contains('focus-order-content')) {
-      ordersList.childNodes[i].classList.remove('focus-order-content')
-    }
-  }
-  event.target.classList.add('focus-order-content');
-  aside.classList.remove('show-menu');
-  aside.classList.add('hide-menu');
-  contentBlock.style.opacity = '1'
-}
+
+

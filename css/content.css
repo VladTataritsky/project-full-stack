@@ -191,12 +191,17 @@ hr {
     width: 300px;
 }
 
-.products-form img {
-    width: 16px;
+.products-form button {
     position: relative;
-    top: -21px;
-    left: 125px;
+    top: -25px;
+    left: 115px;
     padding-right: 3px;
+    background-color: transparent;
+    border: 0;
+}
+.products-form img{
+    width: 16px;
+    margin-top: 3px;
 }
 
 
@@ -213,7 +218,12 @@ hr {
     outline: 1px dotted black;
     outline-offset: -3px;
 }
-
+.products-form-buttons{
+    text-align: right;
+    position: relative;
+    width: 70px;
+    left: 110px;
+}
 
 .products-table {
     border-collapse: collapse;
@@ -261,4 +271,17 @@ hr {
 
 #processorInfContainer {
     display: none;
+}
+
+.show-menu {
+    visibility: visible;
+    opacity: 1;
+    flex: 0 340px;
+}
+
+.hide-menu {
+    flex: 0;
+    width: 0;
+    visibility: hidden;
+    opacity: 0;
 }
