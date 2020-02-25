@@ -33,7 +33,7 @@ const menuState = () => {
   }
 };
 menuBtn.addEventListener('click', menuState);
-document.getElementById('backImg').addEventListener('click', () => {
+const backMenu = () => {
   if (aside.classList.contains('show-menu')) {
     aside.classList.remove('show-menu');
     aside.classList.add('hide-menu');
@@ -48,7 +48,8 @@ document.getElementById('backImg').addEventListener('click', () => {
     menuBtn.style.display = 'none';
     contentBlock.style.opacity = '1'
   }
-});
+};
+document.getElementById('backImg').addEventListener('click', backMenu);
 
 // function which switches shipping state to processor information block
 personBtn.addEventListener('click', () => {
@@ -114,8 +115,7 @@ const focusOrder = () => {
   }
   event.target.classList.add('focus-order-content');
   if (window.screen.width <= 1100) {
-    aside.classList.remove('show-menu');
-    aside.classList.add('hide-menu');
+    backMenu();
     contentBlock.style.opacity = '1'
   }
 };
