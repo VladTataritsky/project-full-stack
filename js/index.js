@@ -1,6 +1,6 @@
 // import {Orders} from 'js/data'
 const productsTable = document.getElementsByClassName('products-table')[0];
-
+const tableSortItem = document.getElementsByClassName('js-sort-table');
 const Orders = [
   {
     id: "1",
@@ -150,19 +150,15 @@ const Orders = [
   }
 ];
 
-const orderFocus = () => {
-  for (let i = 0; i < ordersList.length; i++) {
-    console.log('kek');
-  }
-};
-
-
 let orderIndex = 0;
+let uniqueTableArr = [];
+Orders[orderIndex].products.forEach((el,i) => {
+  uniqueTableArr.push(i)
+});
 
-const orderInfoFn = () => {
+
+const orderData = () => {
   document.getElementsByClassName('js-orders-quantity')[0].innerHTML = `Orders(${Orders.length})`;
-  document.getElementsByClassName('js-line-items-quantity')[0].innerHTML = `Line items(${Orders[orderIndex].products.length})`;
-
   let orderInfoData = document.getElementsByClassName('js-order-info-data')[0];
   orderInfoData.innerHTML = ` <h2>Order ${Orders[orderIndex].id}</h2>
                 <br>
@@ -172,7 +168,10 @@ const orderInfoFn = () => {
                 <p class="price">
                 </p>`;
 
+}
+orderData()
 
+const shipData = () => {
   let shipToData = document.getElementsByClassName('js-ship-to-data')[0];
   shipToData.innerHTML = `<li>${Orders[orderIndex].ShipTo.name}</li>
                         <li>${Orders[orderIndex].ShipTo.Address}</li>
@@ -186,40 +185,54 @@ const orderInfoFn = () => {
                         <li>${Orders[orderIndex].CustomerInfo.address}</li>
                         <li>Developer</li>
                         <li><a href="tel:${Orders[orderIndex].CustomerInfo.phone}">${Orders[orderIndex].CustomerInfo.phone}</a></li>`;
+}
+shipData()
 
-
+const productData = (sortArr) => {
+  let item = [];
+  if (sortArr !== undefined) {
+    item = sortArr;
+  } else {
+    for (let i = 0; i < Orders[orderIndex].products.length; i++) {
+      item.push(i)
+    }
+  }
+  document.getElementsByClassName('js-line-items-quantity')[0].innerHTML = `Line items(${Orders[orderIndex].products.length})`;
   let productTableData = document.getElementsByClassName('products-table')[0];
   productTableData.innerHTML = ` <tr>
-                    <th>Product</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
+                    <th>Product<button  onclick="sortTable(event)" data-table="product" class="js-sort-table"><img src="./icons/sort.png" alt=""></button></th>
+                    <th>Unit Price<button onclick="sortTable(event)" data-table="price" class="js-sort-table"><img src="./icons/sort.png" alt=""></button></th>
+                    <th>Quantity<button  onclick="sortTable(event)" data-table="quantity" class="js-sort-table"><img src="./icons/sort.png" alt=""></button></th>
+                    <th>Total<button onclick="sortTable(event)" data-table="total" class="js-sort-table"><img src="./icons/sort.png" alt=""></button></th>
                 </tr>`;
   let fullPrice = 0;
-  Orders[orderIndex].products.forEach((el) => {
-    fullPrice += parseFloat(el.totalPrice);
+  item.forEach((i) => {
+    fullPrice += parseFloat(Orders[orderIndex].products[i].totalPrice);
     document.getElementsByClassName('price')[0].innerHTML = `${fullPrice}<br>
     <small>
-    <small>${el.currency}</small>
+    <small>${Orders[orderIndex].products[i].currency}</small>
     </small>`;
     let tr = document.createElement('tr');
-    tr.innerHTML = `<td><h4>${el.name}</h4>
-                        <span>${el.id}</span></td>
-                    <td data-label="Unit Price"><b>${el.price}</b> ${el.currency}</td>
-                    <td data-label="Quantity">${el.quantity}</td>
-                    <td data-label="Total"><b>${el.totalPrice}</b> ${el.currency}</td>`;
+    tr.innerHTML = `<td><h4>${Orders[orderIndex].products[i].name}</h4>
+                        <span>${Orders[orderIndex].products[i].id}</span></td>
+                    <td data-label="Unit Price"><b>${Orders[orderIndex].products[i].price}</b> ${Orders[orderIndex].products[i].currency}</td>
+                    <td data-label="Quantity">${Orders[orderIndex].products[i].quantity}</td>
+                    <td data-label="Total"><b>${Orders[orderIndex].products[i].totalPrice}</b> ${Orders[orderIndex].products[i].currency}</td>`;
     productTableData.appendChild(tr);
-
   })
-};
-orderInfoFn();
+
+}
+productData()
+
 
 const getId = () => {
   const arr = document.getElementsByClassName('order-content');
   for (let i = 0; i < arr.length; i++) {
     arr[i].addEventListener('click', (event) => {
       orderIndex = event.target.getAttribute('data-id') - 1;
-      orderInfoFn()
+      orderData()
+      shipData()
+      productData()
     })
   }
 };
@@ -248,7 +261,7 @@ document.getElementsByClassName('refreshIcon')[0].addEventListener('click', refr
 
 document.getElementsByClassName('btn-search')[0].addEventListener('click', () => {
   const arr = [];
-  let uniqueArr = [];
+  let uniqueArr = []
   Orders.forEach((el, i) => {
     for (let key in el.OrderInfo) {
       if (el.OrderInfo[key].toLowerCase().includes(sidebarInput.value.toLowerCase())) {
@@ -283,31 +296,34 @@ document.getElementsByClassName('btn-search')[0].addEventListener('click', () =>
 });
 
 
-document.getElementsByClassName('btn-search')[1].addEventListener('click', () => {
-  const arr2 = [];
-  let uniqueArr2 = [];
-  Orders[orderIndex].products.forEach((item, index) => {
-    for (let key in item) {
-      if (item[key].toLowerCase().includes(productsInput.value.toLowerCase())) {
+const filterTable = () => {
+
+  let arr2 = [];
+  Orders[orderIndex].products.forEach((prod, index) => {
+    for (let key in prod) {
+      if (prod[key].toLowerCase().includes(productsInput.value.toLowerCase())) {
         arr2.push(index)
       }
     }
-    uniqueArr2 = arr2.filter((unItem, pos) => {
+    uniqueTableArr = arr2.filter((unItem, pos) => {
       return arr2.indexOf(unItem) === pos;
     });
   });
+  arr2 = []
+ // sortTable(uniqueTableArr);
+
   let productTableData = document.getElementsByClassName('products-table')[0];
-  if (uniqueArr2.length === 0) {
+  if (uniqueTableArr.length === 0) {
     productTableData.innerHTML = '<h3 class="no-results">No results</h3>';
   } else {
     productTableData.innerHTML = ` <tr>
-                    <th>Product</th>
-                    <th>Unit Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
+                    <th>Product<button  onclick="sortTable(event)" data-table="product" class="js-sort-table"><img src="./icons/sort.png" alt=""></button></th>
+                    <th>Unit Price<button onclick="sortTable(event)" data-table="price" class="js-sort-table"><img src="./icons/sort.png" alt=""></button></th>
+                    <th>Quantity<button  onclick="sortTable(event)" data-table="quantity" class="js-sort-table"><img src="./icons/sort.png" alt=""></button></th>
+                    <th>Total<button onclick="sortTable(event)" data-table="total" class="js-sort-table"><img src="./icons/sort.png" alt=""></button></th>
                 </tr>`;
     let fullPrice = 0;
-    uniqueArr2.forEach((el) => {
+    uniqueTableArr.forEach((el) => {
       fullPrice += parseFloat(Orders[orderIndex].products[el].totalPrice);
       document.getElementsByClassName('price')[0].innerHTML = `${fullPrice}<br>
     <small>
@@ -322,8 +338,36 @@ document.getElementsByClassName('btn-search')[1].addEventListener('click', () =>
       productTableData.appendChild(tr);
     })
   }
-  document.getElementsByClassName('js-line-items-quantity')[0].innerHTML = `Line items(${uniqueArr2.length})`;
-});
+  document.getElementsByClassName('js-line-items-quantity')[0].innerHTML = `Line items(${uniqueTableArr.length})`;
+};
+document.getElementsByClassName('btn-search')[1].addEventListener('click', filterTable)
+
+const sortTable = () => {
+  const compare = (a, b) => {
+    if (typeof a[1] === "number") {
+      return a[1] - b[1];
+    } else {
+      if (a[1] < b[1])
+        return -1;
+    }
+  };
+  let arr1 = [];
+ uniqueTableArr.forEach((i) => {
+    if (event.target.getAttribute('data-table') === 'quantity') {
+      arr1.push([i, Number(Orders[orderIndex].products[i].quantity)]);
+    } else if (event.target.getAttribute('data-table') === 'total') {
+      arr1.push([i, Number(Orders[orderIndex].products[i].totalPrice)]);
+    } else if (event.target.getAttribute('data-table') === 'price') {
+      arr1.push([i, Number(Orders[orderIndex].products[i].price)]);
+    } else if (event.target.getAttribute('data-table') === 'product') {
+      arr1.push([i, Orders[orderIndex].products[i].name]);
+    }
+  });
+  arr1.sort(compare);
+  arr1.forEach((el) => el.pop());
+  let res = [].concat(...arr1);
+  productData(res);
+};
 
 
 
