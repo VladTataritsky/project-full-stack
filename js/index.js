@@ -1,6 +1,5 @@
 // import {Orders} from 'js/data'
-const productsTable = document.getElementsByClassName('products-table')[0];
-const tableSortItem = document.getElementsByClassName('js-sort-table');
+
 const Orders = [
   {
     id: "1",
@@ -152,9 +151,12 @@ const Orders = [
 
 let orderIndex = 0;
 let uniqueTableArr = [];
-Orders[orderIndex].products.forEach((el,i) => {
-  uniqueTableArr.push(i)
-});
+const refreshProductsLength = () => {
+  Orders[orderIndex].products.forEach((el, i) => {
+    uniqueTableArr.push(i);
+  });
+};
+refreshProductsLength();
 
 
 const orderData = () => {
@@ -168,8 +170,8 @@ const orderData = () => {
                 <p class="price">
                 </p>`;
 
-}
-orderData()
+};
+orderData();
 
 const shipData = () => {
   let shipToData = document.getElementsByClassName('js-ship-to-data')[0];
@@ -185,17 +187,15 @@ const shipData = () => {
                         <li>${Orders[orderIndex].CustomerInfo.address}</li>
                         <li>Developer</li>
                         <li><a href="tel:${Orders[orderIndex].CustomerInfo.phone}">${Orders[orderIndex].CustomerInfo.phone}</a></li>`;
-}
-shipData()
+};
+shipData();
 
 const productData = (sortArr) => {
   let item = [];
   if (sortArr !== undefined) {
     item = sortArr;
   } else {
-    for (let i = 0; i < Orders[orderIndex].products.length; i++) {
-      item.push(i)
-    }
+    item = uniqueTableArr;
   }
   document.getElementsByClassName('js-line-items-quantity')[0].innerHTML = `Line items(${Orders[orderIndex].products.length})`;
   let productTableData = document.getElementsByClassName('products-table')[0];
@@ -221,8 +221,8 @@ const productData = (sortArr) => {
     productTableData.appendChild(tr);
   })
 
-}
-productData()
+};
+productData();
 
 
 const getId = () => {
@@ -230,9 +230,11 @@ const getId = () => {
   for (let i = 0; i < arr.length; i++) {
     arr[i].addEventListener('click', (event) => {
       orderIndex = event.target.getAttribute('data-id') - 1;
-      orderData()
-      shipData()
-      productData()
+      uniqueTableArr = [];
+      refreshProductsLength();
+      orderData();
+      shipData();
+      productData();
     })
   }
 };
@@ -309,7 +311,7 @@ const filterTable = () => {
       return arr2.indexOf(unItem) === pos;
     });
   });
-  arr2 = []
+  arr2 = [];
  // sortTable(uniqueTableArr);
 
   let productTableData = document.getElementsByClassName('products-table')[0];
@@ -340,15 +342,32 @@ const filterTable = () => {
   }
   document.getElementsByClassName('js-line-items-quantity')[0].innerHTML = `Line items(${uniqueTableArr.length})`;
 };
-document.getElementsByClassName('btn-search')[1].addEventListener('click', filterTable)
+document.getElementsByClassName('btn-search')[1].addEventListener('click', filterTable);
 
+
+let count = 0;
 const sortTable = () => {
+  count++;
   const compare = (a, b) => {
-    if (typeof a[1] === "number") {
-      return a[1] - b[1];
-    } else {
-      if (a[1] < b[1])
-        return -1;
+    if(count === 1) {
+      if (typeof a[1] === "number") {
+        return a[1] - b[1];
+      } else {
+        if (a[1] < b[1])
+          return -1;
+      }
+    }
+    if (count === 2){
+      if (typeof a[1] === "number") {
+        return b[1] - a[1];
+      } else {
+        if (a[1] < b[1])
+          return 1;
+      }
+    }
+    if (count === 3){
+      productData();
+      count = 0;
     }
   };
   let arr1 = [];
