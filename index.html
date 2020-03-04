@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ITechArt</title>
+    <title>Service</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/aside.css">
     <link rel="stylesheet" href="css/content.css">
     <link rel="stylesheet" href="css/media.css">
     <script src="js/style.js" defer></script>
-    <script src="js/index.js" defer></script>
-    <meta name="viewport" content="width=device-width; initial-scale=1">
+    <script type="module" src="js/index.js" defer></script>
+    <meta name="viewport" content="width=device-width initial-scale=1">
 </head>
 <body>
 <header class="main-header">
@@ -23,7 +23,7 @@
             <h3 class="js-orders-quantity"></h3>
         </header>
         <form class="sidebar-form" action="" title="Enter an order name or a part of it.">
-            <input type="text" id="sidebarInput" placeholder="Поиск" pattern="">
+            <input type="text" id="sidebarInput" data-input="0" onfocus="focusInput()" onblur="blurInput()" oninput="inputEmptyVal()" placeholder="Поиск" pattern="">
             <div class="sidebar-form-buttons">
                 <button class="btn-close"><img class="closeIcon" src="./icons/close.png" alt="close icon"></button>
                 <button class="btn-refresh"><img class="refreshIcon" src="./icons/refresh.png" alt="refresh icon">
@@ -98,7 +98,7 @@
         <article class="line-items">
             <h3 class="js-line-items-quantity"></h3>
             <form class="products-form" action="" title="Enter an order name or a part of it.">
-                <input type="text" id="productsInput" placeholder="Поиск" pattern="">
+                <input type="text" data-input="1" id="productsInput" onfocus="focusInput()" onblur="blurInput()" oninput="inputEmptyVal()" placeholder="Поиск" pattern="">
                 <div class="products-form-buttons">
                     <button class="btn-close"><img class="closeIcon" src="./icons/close.png" alt="close icon"></button>
 

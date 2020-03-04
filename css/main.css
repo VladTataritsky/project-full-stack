@@ -54,6 +54,7 @@ body {
     height: 15px;
     margin-left: 10px;
     display: none;
+    cursor: pointer;
 }
 
 .main-footer {
@@ -71,11 +72,39 @@ body {
     float: right;
     margin-top: 12px;
     padding-right: 20px;
+    cursor: pointer;
 }
 .no-results{
     text-align: center;
     margin-top: 8px;
 }
 
+.header-hide-menu{
+    padding-left: 0;
+    width: 100%;
+    max-width: 1400px;
+}
 
+.header-show-menu{
+    padding-left: 340px;
+    width: calc(100% - 320px);
+    max-width: 1060px;
+}
+
+.tab-active {
+    border-bottom: 3px solid #738fa4;
+
+}
+
+.tab-disable {
+    border-bottom: 3px solid transparent;
+}
+
+.display-block {
+    display: block;
+}
+
+.display-none {
+    display: none;
+}
 

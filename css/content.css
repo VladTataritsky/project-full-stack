@@ -72,6 +72,7 @@
     bottom: 0;
     width: 52px;
     height: 70px;
+    cursor: pointer;
 }
 
 .bottom-line:nth-of-type(3) {
@@ -127,7 +128,8 @@ hr {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.shipping-block a{
+
+.shipping-block a {
     text-decoration: none;
 }
 
@@ -199,13 +201,13 @@ hr {
     background-color: transparent;
     border: 0;
 }
-.products-form img{
+
+.products-form img {
     width: 16px;
     margin-top: 3px;
 }
 
-
-#productsInput{
+#productsInput {
     height: 20px;
     width: calc(98% - 50px);
     padding-right: 50px;
@@ -218,7 +220,8 @@ hr {
     outline: 1px dotted black;
     outline-offset: -3px;
 }
-.products-form-buttons{
+
+.products-form-buttons {
     text-align: right;
     position: relative;
     width: 70px;
@@ -240,30 +243,31 @@ hr {
     justify-content: space-around;
     flex: 2;
 }
-.products-table th{
+
+.products-table th {
     padding-right: 0;
     padding-left: 20px;
 }
 
-.products-table button{
+.products-table button {
     cursor: pointer;
     background-color: transparent;
     border: 0;
 }
 
-.products-table button img{
+.products-table button img {
     width: 12px;
     margin-top: 5px;
     pointer-events: none;
 }
 
-.products-table th:nth-of-type(1),.products-table td:nth-of-type(1) {
+.products-table th:nth-of-type(1), .products-table td:nth-of-type(1) {
     text-align: left;
     flex: 6;
     width: 300px;
 }
 
-.products-table td h4{
+.products-table td h4 {
     width: 300px;
     white-space: nowrap;
     overflow: hidden;
@@ -276,7 +280,7 @@ hr {
     align-items: center;
 }
 
-.products-table tbody{
+.products-table tbody {
     background-color: #f8f8f8;
 }
 
@@ -301,3 +305,4 @@ hr {
     visibility: hidden;
     opacity: 0;
 }
+
