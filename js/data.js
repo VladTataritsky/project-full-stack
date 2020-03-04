@@ -1,4 +1,4 @@
-export const Orders = [
+export let Orders = [
 	{
 		id: "1",
 		OrderInfo: {

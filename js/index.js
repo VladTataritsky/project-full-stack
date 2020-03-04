@@ -79,17 +79,16 @@ productDataTemp();
 
 // function which get order id by click on list of orders
 const getOrderId = () => {
-  const orderContent = document.getElementsByClassName("order-content");
-  for (let i = 0; i < orderContent.length; i++) {
-    orderContent[i].addEventListener("click", (event) => {
-      orderIndex = event.target.getAttribute("data-id") - 1;
-      productIdsArr = [];
-      refreshProductIdsArr();
-      orderDataTemp();
-      shipDataTemp();
-      productDataTemp();
+    ordersList.addEventListener("click", (event) => {
+      if(event.target.classList.contains("order-content")) {
+        orderIndex = event.target.getAttribute("data-id") - 1;
+        productIdsArr = [];
+        refreshProductIdsArr();
+        orderDataTemp();
+        shipDataTemp();
+        productDataTemp();
+      }
     })
-  }
 };
 
 // function which fills orders list by orders
@@ -136,7 +135,7 @@ const filterOrdersList = () => {
   let filteredOrdersId = [];
   Orders.forEach((el, i) => {
     for (let key in el.OrderInfo) {
-      if (el.OrderInfo[key].toLowerCase().includes(sidebarInput.value.toLowerCase())) {
+      if (el.OrderInfo[key].toLowerCase().includes(sidebarInput.value.toLowerCase()) || el.id.includes(sidebarInput.value)) {
         ordersIds.push(i)
       }
     }
@@ -154,7 +153,7 @@ const filterTable = () => {
   const productsIds = [];
   Orders[orderIndex].products.forEach((prod, index) => {
     for (let key in prod) {
-      if (prod[key].toLowerCase().includes(productsInput.value.toLowerCase())) {
+      if (prod[key].toLowerCase().includes(productsInput.value.toLowerCase()) || prod.id.includes(productsInput.value)) {
         productsIds.push(index)
       }
     }
@@ -216,7 +215,7 @@ document.addEventListener("click", (event) => {
     sortTable();
   }
   if (event.target.classList.contains("order-content")) {
-    focusOrder();
+    focusOrder()
   }
 });
 

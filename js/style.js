@@ -14,7 +14,6 @@ const maxPhoneSizeScreen = 1100;
 const ordersList = document.getElementsByClassName("orders-list")[0];
 
 
-
 // function which shows/hides sidebar by clicking on the menu button
 const menuState = () => {
   if (aside.classList.contains("hide-menu")) {
@@ -66,21 +65,26 @@ truckBtn.addEventListener("click", () => {
 });
 
 // function which removes refresh icon by focusing on sidebar input
-const focusInput = () => {
+const focusInput = (event) => {
   document.getElementsByClassName("btn-refresh")[event.target.getAttribute("data-input")].style.display = "none";
 };
+document.getElementById("sidebarInput").addEventListener("focus", focusInput);
+document.getElementById("productsInput").addEventListener("focus", focusInput);
 
 // function which recovers refresh icon by blur on sidebar input
-const blurInput = () => {
+const blurInput = (event) => {
   document.getElementsByClassName("btn-close")[event.target.getAttribute("data-input")].style.display = "none";
   document.getElementsByClassName("btn-refresh")[event.target.getAttribute("data-input")].style.display = "inline";
 };
+document.getElementById("sidebarInput").addEventListener("blur", blurInput);
+document.getElementById("productsInput").addEventListener("blur", blurInput);
 
 // function which removes close icon if sidebar input value is empty
-const inputEmptyVal = () => {
+const inputEmptyVal = (event) => {
   event.target.value !== event.target.pattern ? document.getElementsByClassName("btn-close")[event.target.getAttribute("data-input")].style.display = "inline" : document.getElementsByClassName("btn-close")[event.target.getAttribute("data-input")].style.display = "none";
 };
-
+document.getElementById("sidebarInput").addEventListener("input", inputEmptyVal);
+document.getElementById("productsInput").addEventListener("input", inputEmptyVal);
 
 const focusOrder = () => {
   for (let i = 0; i < ordersList.childNodes.length; i++) {
@@ -94,3 +98,6 @@ const focusOrder = () => {
     contentBlock.style.opacity = "1"
   }
 };
+
+
+
