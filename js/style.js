@@ -1,5 +1,3 @@
-// Script to dynamic work with buttons, forms
-
 // Global variables
 const menuBtn = document.getElementById("menuBtn");
 const aside = document.getElementsByTagName("aside")[0];

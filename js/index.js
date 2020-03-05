@@ -3,6 +3,8 @@ import {Orders} from "../js/data.js"
 const productTableData = document.getElementsByClassName("products-table")[0];
 let orderIndex = 0;
 let productIdsArr = [];
+let sortCount = 0;
+
 
 const refreshProductIdsArr = () => {
   Orders[orderIndex].products.forEach((el, i) => {
@@ -87,6 +89,9 @@ const getOrderId = () => {
         orderDataTemp();
         shipDataTemp();
         productDataTemp();
+        productsInput.value = '';
+        sidebarInput.value = '';
+        sortCount = 0;
       }
     })
 };
@@ -125,6 +130,7 @@ const refreshOrderData = () => {
   if (window.screen.width >= maxPhoneSizeScreen) {
     ordersList.firstChild.classList.add("focus-order-content");
   }
+
 };
 refreshOrderData();
 document.getElementsByClassName("refreshIcon")[0].addEventListener("click", refreshOrderData);
@@ -172,20 +178,20 @@ const filterTable = () => {
 document.getElementsByClassName("btn-search")[1].addEventListener("click", filterTable);
 
 // function which sorts table products
-let count = 0;
 const sortTable = () => {
   let result;
-  count++;
+  sortCount++;
+
   const compare = (a, b) => {
-    if (count === 1 && a[1] < b[1]) {
+    if (sortCount === 1 && a[1] < b[1]) {
       return -1;
     }
-    if (count === 2 && a[1] > b[1]) {
+    if (sortCount === 2 && a[1] > b[1]) {
       return -1;
     }
-    if (count === 3) {
+    if (sortCount === 3) {
       productDataTemp();
-      count = 0;
+      sortCount = 0;
     }
   };
 

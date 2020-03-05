@@ -90,20 +90,3 @@ body {
     width: calc(100% - 320px);
     max-width: 1060px;
 }
-
-.tab-active {
-    border-bottom: 3px solid #738fa4;
-
-}
-
-.tab-disable {
-    border-bottom: 3px solid transparent;
-}
-
-.display-block {
-    display: block;
-}
-
-.display-none {
-    display: none;
-}
