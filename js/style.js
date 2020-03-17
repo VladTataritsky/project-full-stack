@@ -3,11 +3,7 @@ const menuBtn = document.getElementById("menuBtn");
 const aside = document.getElementsByTagName("aside")[0];
 const personBtn = document.getElementById("personBtn");
 const truckBtn = document.getElementById("truckBtn");
-const sidebarInput = document.getElementById("sidebarInput");
-const productsInput = document.getElementById("productsInput");
 const header = document.getElementsByClassName("main-header")[0];
-const contentBlock = document.getElementsByClassName
-("content-block")[0];
 const maxPhoneSizeScreen = 1100;
 const ordersList = document.getElementsByClassName("orders-list")[0];
 
@@ -43,24 +39,26 @@ const backMenu = () => {
 document.getElementById("backImg").addEventListener("click", backMenu);
 
 // function which switches shipping state to processor information block
-personBtn.addEventListener("click", () => {
+const personTab = () => {
   document.getElementById("shippingContainer").style.display = "none";
   document.getElementById("processorInfContainer").style.display = "block";
   truckBtn.firstElementChild.classList.remove("circle-active");
   personBtn.firstElementChild.classList.add("circle-active");
   personBtn.style.borderBottom = "3px solid #738fa4";
   truckBtn.style.borderBottom = "3px solid transparent";
-});
+};
+personBtn.addEventListener("click", personTab);
 
 // function which switches shipping state to shipping block
-truckBtn.addEventListener("click", () => {
+const truckTab = () => {
   document.getElementById("processorInfContainer").style.display = "none";
   document.getElementById("shippingContainer").style.display = "block";
   personBtn.firstElementChild.classList.remove("circle-active");
   truckBtn.firstElementChild.classList.add("circle-active");
   truckBtn.style.borderBottom = "3px solid #738fa4";
   personBtn.style.borderBottom = "3px solid transparent";
-});
+};
+truckBtn.addEventListener("click", truckTab);
 
 // function which removes refresh icon by focusing on sidebar input
 const focusInput = (event) => {
@@ -93,7 +91,7 @@ const focusOrder = () => {
   event.target.classList.add("focus-order-content");
   if (window.screen.width <= maxPhoneSizeScreen) {
     backMenu();
-    contentBlock.style.opacity = "1"
+    document.getElementsByClassName("content-block")[0].style.opacity = "1"
   }
 };
 

@@ -253,11 +253,26 @@ hr {
     cursor: pointer;
     background-color: transparent;
     border: 0;
+    vertical-align: middle;
+    height: 24px;
+}
+.table-img-wrapper{
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+.table-sort-asc{
+    height: 6px;
+    overflow: hidden;
+}
+.table-sort-desc {
+    transform: rotate(180deg);
+    height: 6px;
+    overflow: hidden;
 }
 
 .products-table button img {
     width: 12px;
-    margin-top: 5px;
     pointer-events: none;
 }
 
