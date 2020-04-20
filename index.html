@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="css/content.css">
     <link rel="stylesheet" href="css/media.css">
     <script src="js/style.js" defer></script>
-    <script type="module" src="js/index.js" defer></script>
+    <script src="js/map.js" defer></script>
+    <script src="js/index.js" defer></script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=84c539a0-dd17-4c92-a536-696a3cd52798&lang=ru_RU"
+            type="text/javascript"></script>
     <meta name="viewport" content="width=device-width initial-scale=1">
 </head>
 <body>
@@ -22,38 +25,50 @@
             <img id="backImg" src="./icons/back.png" alt="back icon">
             <h3 class="js-orders-quantity"></h3>
         </header>
-        <form class="sidebar-form" action="" title="Enter an order name or a part of it.">
+        <form class="sidebar-form" action="">
             <input type="text" id="sidebarInput" data-input="0" placeholder="Поиск" pattern="">
             <div class="sidebar-form-buttons">
                 <button class="btn-close"><img class="closeIcon" src="./icons/close.png" alt="close icon"></button>
-                <button class="btn-refresh"><img class="refreshIcon" src="./icons/refresh.png" alt="refresh icon">
+                <button type="button" class="btn-refresh"><img class="refreshIcon" src="./icons/refresh.png" alt="refresh icon">
                 </button>
                 <button class="btn-search"><img class="searchIcon" src="./icons/search.png" alt="search icon"></button>
             </div>
         </form>
-        <div class="orders-list">
+        <div class="out-order-list">
+            <div class="orders-list"></div>
+            <div class="plus-img-wrapper">
+                <img class="add-orders-img" src="./icons/plus.png" alt="">
+            </div>
         </div>
-        <img class="footer-img" src="./icons/align.png" alt="align icon">
-        <img class="footer-img" src="./icons/filter.png" alt="filter icon">
+        <div class="aside-footer-img">
+            <img class="footer-img" src="./icons/align.png" alt="align icon">
+            <img class="footer-img" src="./icons/filter.png" alt="filter icon">
+        </div>
     </aside>
     <div class="content-block">
         <section class="order-info">
             <div class="js-order-info-data">
             </div>
-            <div id="truckBtn" class="bottom-line">
+            <div id="truckBtn" class="bottom-line toggle-tabs">
                 <div class="circle circle-active">
                     <img src="./icons/delivery-truck.png" alt="delivery-truck icon">
                 </div>
             </div>
-            <div id="personBtn" class="bottom-line">
+            <div id="personBtn" class="bottom-line toggle-tabs">
                 <div class="circle">
                     <img src="./icons/avatar.png" alt="person icon">
+                </div>
+            </div>
+            <div id="mapBtn" class="bottom-line toggle-tabs">
+                <div class="circle">
+                    <img src="./icons/pin.png" alt="person icon">
                 </div>
             </div>
         </section>
         <article id="shippingContainer">
             <div class="shipping-block">
                 <h3>Shipping Adress</h3>
+                <button class="edit-toggle-btn" type="button">Edit</button>
                 <br>
                 <hr>
                 <div class="shipping-lists">
@@ -72,6 +87,7 @@
         <article id="processorInfContainer">
             <div class="shipping-block">
                 <h3>Processor information</h3>
+                <button class="edit-toggle-btn" type="button">Edit</button>
                 <br>
                 <hr>
                 <div class="details-block-wrapper">
@@ -95,6 +111,9 @@
                 </div>
             </div>
         </article>
+        <article class="map-wrapper">
+            <div id="map"></div>
+        </article>
         <article class="line-items">
             <h3 class="js-line-items-quantity"></h3>
             <form class="products-form" action="" title="Enter an order name or a part of it.">
@@ -107,14 +126,33 @@
                     <button class="btn-search"><img class="searchIcon" src="./icons/search.png" alt="search icon">
                     </button>
                 </div>
+                <img class="add-product-img" src="./icons/plus.png" alt="">
             </form>
             <table class="products-table">
-                <tbody><tr>
-                    <th>Product<button  data-table="product" class="js-sort-table"><div class="table-img-wrapper"><img src="./icons/sort.png" alt=""></div></button></th>
-                    <th>Unit Price<button data-table="price" class="js-sort-table"><div class="table-img-wrapper"><img src="./icons/sort.png" alt=""></div></button></th>
-                    <th>Quantity<button data-table="quantity" class="js-sort-table"><div class="table-img-wrapper"><img src="./icons/sort.png" alt=""></div></button></th>
-                    <th>Total<button  data-table="total" class="js-sort-table"><div class="table-img-wrapper"><img src="./icons/sort.png" alt=""></div></button></th>
-                </tr></tbody>
+                <tbody>
+                <tr>
+                    <th>Product
+                        <button data-table="product" class="js-sort-table">
+                            <div class="table-img-wrapper"><img src="./icons/sort.png" alt=""></div>
+                        </button>
+                    </th>
+                    <th>Unit Price
+                        <button data-table="price" class="js-sort-table">
+                            <div class="table-img-wrapper"><img src="./icons/sort.png" alt=""></div>
+                        </button>
+                    </th>
+                    <th>Quantity
+                        <button data-table="quantity" class="js-sort-table">
+                            <div class="table-img-wrapper"><img src="./icons/sort.png" alt=""></div>
+                        </button>
+                    </th>
+                    <th>Total
+                        <button data-table="total" class="js-sort-table">
+                            <div class="table-img-wrapper"><img src="./icons/sort.png" alt=""></div>
+                        </button>
+                    </th>
+                </tr>
+                </tbody>
                 <tbody class="table-products">
                 </tbody>
             </table>
@@ -124,5 +162,23 @@
 <footer class="main-footer">
     <img class="footer-img" src="./icons/mail.png" alt="mail icon">
 </footer>
+<div class="popup">
+    <div class="dark-background-popup">
+        <div class="popup-content">
+            <img class="close-popup-img" src="./icons/close.png" alt="">
+            <h1>Create new order</h1>
+            <form action="#" id="form-popup">
+                <label for="firstName">Name</label><input name="firstName" id="firstName" class="popup-input"
+                                                          type="text" required>
+                <label for="lastName">Surname</label><input name="lastName" id="lastName" class="popup-input"
+                                                            type="text" required>
+                <label for="adress">Adress</label><input name="address" id="adress" class="popup-input" type="text" required>
+                <label for="phone">Phone</label><input name="phone" id="phone" class="popup-input" type="text" required>
+                <label for="email">Email</label><input name="email" id="email" class="popup-input" type="text" required>
+                <button type="submit" value="Send" id="submit-popup-btn">SUBMIT</button>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

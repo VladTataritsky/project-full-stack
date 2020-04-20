@@ -3,6 +3,7 @@ const menuBtn = document.getElementById("menuBtn");
 const aside = document.getElementsByTagName("aside")[0];
 const personBtn = document.getElementById("personBtn");
 const truckBtn = document.getElementById("truckBtn");
+const mapBtn = document.getElementById("mapBtn");
 const header = document.getElementsByClassName("main-header")[0];
 const maxPhoneSizeScreen = 1100;
 const ordersList = document.getElementsByClassName("orders-list")[0];
@@ -38,27 +39,38 @@ const backMenu = () => {
 };
 document.getElementById("backImg").addEventListener("click", backMenu);
 
-// function which switches shipping state to processor information block
-const personTab = () => {
-  document.getElementById("shippingContainer").style.display = "none";
-  document.getElementById("processorInfContainer").style.display = "block";
-  truckBtn.firstElementChild.classList.remove("circle-active");
-  personBtn.firstElementChild.classList.add("circle-active");
-  personBtn.style.borderBottom = "3px solid #738fa4";
-  truckBtn.style.borderBottom = "3px solid transparent";
-};
-personBtn.addEventListener("click", personTab);
+document.addEventListener('click', (event) => {
+  if(event.target.classList.contains('toggle-tabs')){
+    for(let i = 0; i < document.getElementsByClassName('toggle-tabs').length; i++){
+      document.getElementsByClassName('toggle-tabs')[i].firstElementChild.classList.remove("circle-active");
+      document.getElementsByClassName('toggle-tabs')[i].style.borderBottom = "3px solid transparent";
+    }
 
-// function which switches shipping state to shipping block
-const truckTab = () => {
+    if(event.target.id === 'truckBtn'){
+      toFirstTab()
+    }
+    if(event.target.id === 'personBtn'){
+      document.getElementsByClassName("map-wrapper")[0].style.display = "none";
+      document.getElementById("shippingContainer").style.display = "none";
+      document.getElementById("processorInfContainer").style.display = "block";
+
+    }
+    if(event.target.id === 'mapBtn'){
+      document.getElementById("shippingContainer").style.display = "none";
+      document.getElementById("processorInfContainer").style.display = "none";
+      document.getElementsByClassName("map-wrapper")[0].style.display = "flex";
+    }
+    event.target.style.display = 'flex';
+    event.target.firstElementChild.classList.add("circle-active");
+    event.target.style.borderBottom = "3px solid #738fa4";
+  }
+});
+
+const toFirstTab = () => {
   document.getElementById("processorInfContainer").style.display = "none";
+  document.getElementsByClassName("map-wrapper")[0].style.display = "none";
   document.getElementById("shippingContainer").style.display = "block";
-  personBtn.firstElementChild.classList.remove("circle-active");
-  truckBtn.firstElementChild.classList.add("circle-active");
-  truckBtn.style.borderBottom = "3px solid #738fa4";
-  personBtn.style.borderBottom = "3px solid transparent";
-};
-truckBtn.addEventListener("click", truckTab);
+}
 
 // function which removes refresh icon by focusing on sidebar input
 const focusInput = (event) => {
@@ -95,5 +107,10 @@ const focusOrder = () => {
   }
 };
 
+document.getElementsByClassName('add-orders-img')[0].addEventListener('click', ()=> {document.getElementsByClassName('popup')[0].style.display = 'block'
+});
+
+document.getElementsByClassName('close-popup-img')[0].addEventListener('click', ()=> {document.getElementsByClassName('popup')[0].style.display = 'none'
+});
 
 

@@ -73,13 +73,14 @@
     outline-offset: -3px;
 }
 
-.orders-list {
+.out-order-list {
     display: flex;
     flex-direction: column;
     margin-top: 5px;
     overflow-y: auto;
     overflow-x: hidden;
     height: calc(100% - 71px);
+    background-color: #F5F5F5;
 }
 
 .orders-list::-webkit-scrollbar-track {
@@ -148,4 +149,64 @@
 
 .btn-close {
     display: none;
+}
+
+.order-add-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.add-order {
+    width: 50px;
+    opacity: 0.3;
+    text-align: center;
+}
+
+.add-order:hover {
+    opacity: 1;
+}
+
+.orders-container {
+    background-color: plum;
+}
+
+.plus-img-wrapper {
+    text-align: center;
+}
+
+.plus-img-wrapper img {
+    opacity: 0.3;
+}
+
+.plus-img-wrapper img:hover {
+    opacity: 1;
+}
+
+.out-order-list .add-orders-img {
+    width: 80px;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.bin-img {
+    width: 25px;
+    position: absolute;
+    right: 10px;
+    top: 85px;
+    opacity: 0.3;
+}
+
+.bin-img:hover {
+    opacity: 1;
+}
+
+.spin-active {
+    animation: spin 1.3s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
 }
