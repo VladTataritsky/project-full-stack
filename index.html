@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/media.css">
     <script src="js/style.js" defer></script>
     <script src="js/map.js" defer></script>
+    <script src="js/requests.js" defer></script>
     <script src="js/index.js" defer></script>
     <script src="https://api-maps.yandex.ru/2.1/?apikey=84c539a0-dd17-4c92-a536-696a3cd52798&lang=ru_RU"
             type="text/javascript"></script>
@@ -29,7 +30,8 @@
             <input type="text" id="sidebarInput" data-input="0" placeholder="Поиск" pattern="">
             <div class="sidebar-form-buttons">
                 <button class="btn-close"><img class="closeIcon" src="./icons/close.png" alt="close icon"></button>
-                <button type="button" class="btn-refresh"><img class="refreshIcon" src="./icons/refresh.png" alt="refresh icon">
+                <button type="button" class="btn-refresh"><img class="refreshIcon" src="./icons/refresh.png"
+                                                               alt="refresh icon">
                 </button>
                 <button class="btn-search"><img class="searchIcon" src="./icons/search.png" alt="search icon"></button>
             </div>
@@ -72,15 +74,18 @@
                 <br>
                 <hr>
                 <div class="shipping-lists">
-                    <ul>
+                    <ul class="ship-list-names">
                         <li>Name:</li>
                         <li>Street:</li>
                         <li>ZIP Code / City:</li>
                         <li>Region:</li>
                         <li>Country:</li>
                     </ul>
-                    <ul class="js-ship-to-data">
-                    </ul>
+                    <form action="#" class="form-display-shipto">
+                        <ul class="js-ship-to-data">
+
+                        </ul>
+                    </form>
                 </div>
             </div>
         </article>
@@ -93,14 +98,16 @@
                 <div class="details-block-wrapper">
                     <div class="details-block">
                         <h4>Details</h4>
-                        <ul>
+                        <ul class="procc-list-names">
                             <li>Name:</li>
                             <li>Employee ID:</li>
                             <li>Job Title:</li>
                             <li>Phone:</li>
                         </ul>
-                        <ul class="js-customer-info">
-                        </ul>
+                        <form action="#" class="form-display-customer">
+                            <ul class="js-customer-info">
+                            </ul>
+                        </form>
                     </div>
                     <div class="picture-wrapper">
                         <h4>Picture</h4>
@@ -143,7 +150,7 @@
                     </th>
                     <th>Quantity
                         <button data-table="quantity" class="js-sort-table">
-                            <div class="table-img-wrapper"><img src="./icons/sort.png" alt=""></div>
+                            <div class="table-img-wrapper "><img src="./icons/sort.png" alt=""></div>
                         </button>
                     </th>
                     <th>Total
@@ -166,16 +173,26 @@
     <div class="dark-background-popup">
         <div class="popup-content">
             <img class="close-popup-img" src="./icons/close.png" alt="">
-            <h1>Create new order</h1>
             <form action="#" id="form-popup">
+                <h3>Create new order</h3>
                 <label for="firstName">Name</label><input name="firstName" id="firstName" class="popup-input"
                                                           type="text" required>
                 <label for="lastName">Surname</label><input name="lastName" id="lastName" class="popup-input"
                                                             type="text" required>
-                <label for="adress">Adress</label><input name="address" id="adress" class="popup-input" type="text" required>
+                <label for="adress">Adress</label><input name="address" id="adress" class="popup-input" type="text"
+                                                         required>
                 <label for="phone">Phone</label><input name="phone" id="phone" class="popup-input" type="text" required>
                 <label for="email">Email</label><input name="email" id="email" class="popup-input" type="text" required>
                 <button type="submit" value="Send" id="submit-popup-btn">SUBMIT</button>
+            </form>
+            <form action="#" id="form-popup-products">
+                <h3>Create new product</h3>
+                <label for="name">Product name</label><input name="name" id="name" class="popup-input" type="text"
+                                                             required>
+                <label for="price">Price</label><input name="price" id="price" class="popup-input" type="text" required>
+                <label for="quantity">Quantity</label><input name="quantity" id="quantity" class="popup-input"
+                                                             type="text" required>
+                <button type="submit" value="Send" id="submit-popup-product-btn">SUBMIT</button>
             </form>
         </div>
     </div>

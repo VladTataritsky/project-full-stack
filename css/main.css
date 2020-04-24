@@ -158,10 +158,14 @@ body {
     border-radius: 5px;
     color: white;
 }
-.popup-content h1{
+.popup-content h3{
     color: darkslategrey;
     text-align: center;
     margin-top: 20px;
     padding-bottom: 30px;
 }
 
+/*
+#form-popup-products {
+    display: none;
+}*/

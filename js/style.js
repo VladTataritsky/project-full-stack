@@ -107,7 +107,16 @@ const focusOrder = () => {
   }
 };
 
-document.getElementsByClassName('add-orders-img')[0].addEventListener('click', ()=> {document.getElementsByClassName('popup')[0].style.display = 'block'
+document.getElementsByClassName('add-orders-img')[0].addEventListener('click', ()=> {
+  document.getElementsByClassName('popup')[0].style.display = 'block';
+  document.getElementById('form-popup-products').style.display = 'none';
+  document.getElementById('form-popup').style.display = 'block';
+});
+
+document.getElementsByClassName('add-product-img')[0].addEventListener('click', ()=> {
+  document.getElementsByClassName('popup')[0].style.display = 'block';
+  document.getElementById('form-popup').style.display = 'none';
+  document.getElementById('form-popup-products').style.display = 'block';
 });
 
 document.getElementsByClassName('close-popup-img')[0].addEventListener('click', ()=> {document.getElementsByClassName('popup')[0].style.display = 'none'

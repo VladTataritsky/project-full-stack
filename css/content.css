@@ -130,7 +130,6 @@ hr {
 }
 
 .shipping-block ul {
-    width: 21%;
     text-align: right;
     display: flex;
     flex-direction: column;
@@ -156,6 +155,19 @@ hr {
     text-decoration: none;
 }
 
+.form-display-shipto {
+    width: 100%;
+}
+
+.js-ship-to-data li, .js-customer-info li {
+    text-align: left;
+}
+
+.js-ship-to-data, .js-customer-info {
+    padding-left: 10px;
+    color: black;
+}
+
 .shipping-block input, #processorInfContainer input {
     border: none;
     outline: 1px solid grey;
@@ -163,12 +175,8 @@ hr {
     padding-left: 10px;
 }
 
-#processorInfContainer .shipping-block ul {
-    width: 25%;
-}
-
-#processorInfContainer .shipping-block ul:nth-of-type(2) {
-    width: 60%;
+.procc-list-names, .ship-list-names{
+    width: 21%;
 }
 
 #processorInfContainer .shipping-block {
@@ -233,10 +241,12 @@ hr {
     background-color: transparent;
     border: 0;
 }
-.add-product-btn{
+
+.add-product-btn {
     position: absolute;
     right: 0;
 }
+
 .products-form-buttons img {
     width: 16px;
     margin-top: 3px;
@@ -270,6 +280,7 @@ hr {
     top: 0;
 
 }
+
 .products-table {
     border-collapse: collapse;
     width: 100%;
@@ -325,9 +336,11 @@ hr {
     flex: 6;
     width: 300px;
 }
-.products-table th:last-of-type, td:last-of-type{
+
+.products-table th:last-of-type, td:last-of-type {
     padding-right: 15px;
 }
+
 .products-table td h4 {
     width: 300px;
     white-space: nowrap;
@@ -344,10 +357,12 @@ hr {
 .products-table tbody {
     background-color: #f8f8f8;
 }
-.remove-product-img{
+
+.remove-product-img {
     width: 18px;
     margin-left: 10px;
 }
+
 .products-table h4 {
     padding-bottom: 4px;
     color: black;
@@ -370,7 +385,7 @@ hr {
     opacity: 0;
 }
 
-.map-wrapper{
+.map-wrapper {
     width: 100%;
     height: auto;
     padding: 20px 0;
@@ -378,6 +393,7 @@ hr {
     justify-content: center;
     align-items: center;
 }
+
 #map {
     width: 500px;
     height: 500px;
