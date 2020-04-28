@@ -98,7 +98,7 @@ const GETtableDataTemp = (item) => {
       let tr = document.createElement("tr");
       tr.setAttribute('data-id', productsList[i].id);
       tr.innerHTML = `<td><h4>${productsList[i].name}</h4>
-                       <span>${productsList[i].id}</span></td>
+                       <span>${productsList[i].productId}</span></td>
                    <td data-label="Unit Price"><b>${productsList[i].price}</b> ${productsList[i].currency}</td>
                    <td data-label="Quantity">${productsList[i].quantity}</td>
                    <td data-label="Total"><b>${productsList[i].totalPrice}</b> ${productsList[i].currency}<img class="remove-product-img" src="./icons/trash.png"></td>`;
@@ -125,6 +125,7 @@ ordersList.addEventListener("click", (event) => {
     document.getElementById("sidebarInput").value = '';
     sortCount = 0;
     sortBtnState();
+   // window.history.pushState({}, null, `/Orders/${orderIndex}`);
   }
 })
 
