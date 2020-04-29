@@ -122,20 +122,16 @@ const POSTproduct = (data) => {
 
 const PUTorder = (shipToData, customerData) => {
   let data = {
-    "shipTo": {
-      "name": shipToData[0],
-      "address": shipToData[1],
+      "shipToName": shipToData[0],
+      " shipToAddress": shipToData[1],
       "ZIP": shipToData[2],
       "region": shipToData[3],
-      "country": shipToData[4]
-    },
-    "customerInfo": {
-      "firstName": customerData[0],
-      "lastName": '',
-      "address": customerData[1],
-      "phone": customerData[2],
-      "email": customerData[3]
-    }
+      "country": shipToData[4],
+      "customerFirstName": customerData[0],
+      "customerLastName": '',
+      "customerAddress": customerData[1],
+      "customerPhone": customerData[2],
+      "customerEmail": customerData[3]
   };
   fetch(`http://localhost:3000/api/Orders/${currentOrder.id}`, {
     method: "PUT",

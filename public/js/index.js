@@ -196,10 +196,8 @@ document.addEventListener("DOMContentLoaded", () => {
     json = JSON.parse(json);
     let data = {
       "summary": {
-        "createdAt": date,
         "customer": json.firstName,
         "status": "pending",
-        "shippedAt": "2017-09-17T19:00:30.422Z",
         "totalPrice": 220,
         "currency": "EUR"
       },
