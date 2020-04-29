@@ -201,23 +201,8 @@ app.delete('/api/Orders/:id/products/:ll', (req, res) => {
 
 app.post('/api/Orders', (req, res) => {
   if (!req.body) return res.sendStatus(400);
-  let body = req.body;
-  ORDER.create({
-    customer: body.summary.customer,
-    status: body.summary.status,
-    totalPrice: body.summary.totalPrice,
-    currency: body.summary.currency,
-    shipToName: body.shipTo.name,
-    shipToAddress: body.shipTo.address,
-    ZIP: body.shipTo.ZIP,
-    region: body.shipTo.region,
-    country: body.shipTo.country,
-    customerFirstName: body.customerInfo.firstName,
-    customerLastName: body.customerInfo.lastName,
-    customerAddress: body.customerInfo.address,
-    customerPhone: body.customerInfo.phone,
-    customerEmail: body.customerInfo.email,
-  }).then(res => {
+  ORDER.create(req.body
+  ).then(res => {
     console.log(res)
   }).catch(err => console.log(err));
   res.send("data was added")
@@ -225,15 +210,7 @@ app.post('/api/Orders', (req, res) => {
 
 app.post('/api/OrderProducts', (req, res) => {
   if (!req.body) return res.sendStatus(400);
-  let body = req.body;
-  PRODUCT.create({
-    name: body.name,
-    price: body.price,
-    currency: body.currency,
-    quantity: body.quantity,
-    totalPrice: body.totalPrice,
-    orderId: body.orderId
-  }).then(res => {
+  PRODUCT.create( req.body ).then(res => {
     console.log(res)
   }).catch(err => console.log(err));
   res.send("data was added")
@@ -242,7 +219,6 @@ app.post('/api/OrderProducts', (req, res) => {
 app.put('/api/Orders/:id', (req, res) => {
   let id = req.params.id;
   if (!req.body) return res.sendStatus(400);
-  let body = req.body;
   ORDER.update( req.body,
     {where: {orderId: id}}
   ).then(res => {

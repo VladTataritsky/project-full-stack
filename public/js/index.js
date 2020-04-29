@@ -195,26 +195,20 @@ document.addEventListener("DOMContentLoaded", () => {
     json = toJSONString(this);
     json = JSON.parse(json);
     let data = {
-      "summary": {
         "customer": json.firstName,
         "status": "pending",
         "totalPrice": 220,
-        "currency": "EUR"
-      },
-      "shipTo": {
-        "name": "Leverx",
-        "address": "Nemiga 18",
+        "currency": "EUR",
+        "shipToName": "Leverx",
+        "shipToAddress": "Nemiga 18",
         "ZIP": "2111",
         "region": "Minsk",
-        "country": "Belarus"
-      },
-      "customerInfo": {
-        "firstName": json.firstName,
-        "lastName": json.lastName,
-        "address": json.address,
-        "phone": json.phone,
-        "email": json.email
-      }
+        "country": "Belarus",
+        "customerFirstName": json.firstName,
+        "customerLastName": json.lastName,
+        "customerAddress": json.address,
+        "customerPhone": json.phone,
+        "customerEmail": json.email
     };
 
     POSTorder(data);
