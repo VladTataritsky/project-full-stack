@@ -8,6 +8,7 @@ const GETdata = () => {
     .then(res => res.json())
     .then(data => {
         Orders = data
+      console.log(Orders)
         if (Orders.length !== 0) {
           GETorderData();
           if (localStorage.getItem("lastOrder") !== null) {

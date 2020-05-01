@@ -26,10 +26,10 @@ const GETorderData = (item) => {
       orderContent.setAttribute("data-id", Orders[index].id);
       orderContent.innerHTML =
         `<h3>Order ${Orders[index].id}</h3>
-               <p>${Orders[index].summary.customer}</p>
-               <p>Shipped: ${Orders[index].summary.shippedAt.slice(0, 10)}</p>
-               <h2 class="date">${Orders[index].summary.createdAt.slice(0, 10)}</h2>
-               <p class="order-status">${Orders[index].summary.status}</p>
+               <p>${Orders[index].customerId}</p>
+               <p>Shipped: ${Orders[index].shippedAt.slice(0, 10)}</p>
+               <h2 class="date">${Orders[index].createdAt.slice(0, 10)}</h2>
+               <p class="order-status">${Orders[index].status}</p>
 <img class="bin-img" src="./icons/trash.png" alt="">`;
       ordersList.appendChild(orderContent);
       // getOrderId();
@@ -43,9 +43,9 @@ const GETorderDataTemp = () => {
   document.getElementsByClassName("js-orders-quantity")[0].innerHTML = `Orders(${Orders.length})`;
   orderInfoData.innerHTML = ` <h2>Order ${currentOrder.id}</h2>
                 <br>
-                <p>Customer: ${currentOrder.summary.customer}</p>
-                <p>Ordered: ${currentOrder.summary.createdAt.slice(0, 10)}</p>
-                <p>Shipped: ${currentOrder.summary.shippedAt.slice(0, 10)}</p>
+                <p>Customer: ${currentOrder.customerId}</p>
+                <p>Ordered: ${currentOrder.createdAt.slice(0, 10)}</p>
+                <p>Shipped: ${currentOrder.shippedAt.slice(0, 10)}</p>
                 <p class="price">
                 </p>`;
 };
@@ -58,8 +58,8 @@ const GETshipDataTemp = (data) => {
   customerInfo.innerHTML = '';
 
   let el = currentOrder
-  let inputShipToVal = [el.shipTo.name, el.shipTo.address, el.shipTo.ZIP, el.shipTo.region, el.shipTo.country];
-  let inputCustInfVal = [`${el.customerInfo.firstName} ${el.customerInfo.lastName}`, el.customerInfo.address, '-', el.customerInfo.phone];
+  let inputShipToVal = [el[1].firstName, el[1].address, el[1].ZIP, el[1].region, el[1].country];
+  let inputCustInfVal = [`${el[1].firstName} ${el[1].lastName}`, el[1].address, '-', el[1].phone];
   if(typeof data === 'undefined') {
     inputShipToVal.forEach((elem) => {
       shipToData.innerHTML += `<li>${elem}</li>`;

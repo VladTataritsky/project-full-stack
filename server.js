@@ -10,84 +10,133 @@ const sequelize = new Sequelize("orders", "sa", "123", {
   port: "1433"
 });
 
-const ORDER = sequelize.define("order", {
-    orderId: {
-      type: Sequelize.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-      allowNull: false
-    },
-    customer: {type: Sequelize.STRING, allowNull: false},
-    status: {type: Sequelize.STRING, allowNull: false},
-    totalPrice: {type: Sequelize.STRING, allowNull: false},
-    currency: {type: Sequelize.STRING, allowNull: false},
-    shipToName: {type: Sequelize.STRING, allowNull: false},
-    shipToAddress: {type: Sequelize.STRING, allowNull: false},
+
+const CUSTOMERINFO = sequelize.define("customerInfo", {
+    firstName: {type: Sequelize.STRING, allowNull: false,},
+    lastName: {type: Sequelize.STRING, allowNull: false},
+    address: {type: Sequelize.STRING, allowNull: false},
+    phone: {type: Sequelize.STRING, allowNull: false},
+    email: {type: Sequelize.STRING, allowNull: false},
     ZIP: {type: Sequelize.STRING, allowNull: false},
     region: {type: Sequelize.STRING, allowNull: false},
     country: {type: Sequelize.STRING, allowNull: false},
-    customerFirstName: {type: Sequelize.STRING, allowNull: false},
-    customerLastName: {type: Sequelize.STRING, allowNull: false},
-    customerAddress: {type: Sequelize.STRING, allowNull: false},
-    customerPhone: {type: Sequelize.STRING, allowNull: false},
-    customerEmail: {type: Sequelize.STRING, allowNull: false},
+  },
+  {
+    tableName: 'CustomerInfo'
   }
 )
 
-const PRODUCT = sequelize.define("product", {
-    productId: {
-      type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true, allowNull: false},
-    name: {type: Sequelize.STRING,  allowNull: false},
+const ORDERINFO = sequelize.define("orderInfo", {
+    id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    customerId: {
+      type: Sequelize.INTEGER, allowNull: false,
+      references: {model: CUSTOMERINFO, key: 'id'}
+    },
+    status: {type: Sequelize.STRING, allowNull: false},
+  },
+  {
+    tableName: 'orderInfo'
+  }
+);
+
+
+const PRODUCTINFO = sequelize.define("ProductInfo", {
+    id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true
+    },
+    name: {type: Sequelize.STRING, allowNull: false},
     price: {type: Sequelize.STRING, allowNull: false},
-    currency: {type: Sequelize.STRING, allowNull: false},
-    quantity: {type: Sequelize.STRING, allowNull: false},
-    totalPrice: {type: Sequelize.STRING, allowNull: false},
+  }, {
+    tableName: 'ProductInfo'
+  }
+)
+
+const ORDERPRODUCT = sequelize.define("orderProduct", {
+    id: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true
+    },
     orderId: {
       type: Sequelize.INTEGER,
       allowNull: false,
-      references: {model: ORDER, key: 'orderId'},
-    }
+      references: {model: ORDERINFO, key: 'id'},
+    },
+    productId: {
+      type: Sequelize.INTEGER, allowNull: false,
+      references: {model: PRODUCTINFO, key: 'id'},
+    },
+    quantity: {
+      type: Sequelize.STRING, allowNull: false,
+
+    },
+
   }
 )
 
-sequelize.sync().then(result => {
+
+sequelize.sync().then(() => {
   console.log('connection success');
 })
   .catch(err => console.log(err));
 
-/*
-ORDER.create({
-  customer: "Nick",
+// First Step
+
+ORDERINFO.create({
+  customerId: 1,
   status: "shipped",
-  totalPrice: "111",
-  currency: "BYN",
-  shipToName: "level222",
-  shipToAddress: "Nemiha 22",
+}).then(res => {
+  console.log(res)
+}).catch(err => console.log(err));
+
+CUSTOMERINFO.create({
+  firstName: "Nick",
+  lastName: "Jackson",
+  phone: "+375334568721",
+  email: "tataritskii@gmail.com",
+  address: "Nemiha 22",
   ZIP: "333432",
-  region: "Mogilev",
+  region: "Minsk",
   country: "Belarus",
-  customerFirstName: "John",
-  customerLastName: "Williams",
-  customerAddress: "Paris",
-  customerPhone: "+375334568721",
-  customerEmail: "tataritskii@gmail.com",
+}).then(res => {
+  console.log(res)
+}).catch(err => console.log(err));
+
+// Second step
+
+/*
+ORDERPRODUCT.create({
+  orderId: 1,
+  productId: 1,
+  quantity: "5"
 }).then(res => {
   console.log(res)
 }).catch(err => console.log(err));
 
 
-PRODUCT.create({
-  name: "Milk",
+PRODUCTINFO.create({
+  name: "eggs",
   price: "2",
-  currency: "BYN",
-  quantity: "3",
-  totalPrice: "6",
-  orderId: 1
 }).then(res => {
   console.log(res)
 }).catch(err => console.log(err));
 */
 
+/////////////////
+
+
+
+
+/*
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
 
@@ -98,37 +147,38 @@ app.get('/', (req, res) => {
 
 app.get('/api/Orders', (req, res) => {
   sequelize.sync().then(() => {
-    let result;
-    ORDER.findAll().then(order => {
-      result = order.map(el => {
-        return {
-          id: el.orderId,
-          summary: {
-            createdAt: el.createdAt,
-            customer: el.customer,
-            status: el.status,
-            shippedAt: el.updatedAt,
-            totalPrice: el.totalPrice,
-            currency: el.currency
-          },
-          shipTo: {
-            name: el.shipToName,
-            address: el.shipToAddress,
-            ZIP: el.ZIP,
-            region: el.region,
-            country: el.country,
-          },
-          customerInfo: {
-            firstName: el.customerFirstName,
-            lastName: el.customerLastName,
-            address: el.customerAddress,
-            phone: el.customerPhone,
-            email: el.customerEmail,
-          }
-        }
+    let result1 = [];
+    ORDERINFO.findAll().then(order => {
+      order.forEach(el => {
+        result1.push({
+          id: el.id,
+          customerId: el.customerId,
+          status: el.status,
+          shippedAt: el.createdAt,
+          createdAt: el.createdAt
+        })
       })
+    }).catch(err => console.log(err));
+    let result2 = [];
+    CUSTOMERINFO.findAll().then(customer => {
+      customer.forEach(el => {
+        result2.push({
+          firstName: el.firstName,
+          lastName: el.lastName,
+          address: el.address,
+          phone: el.phone,
+          email: el.email,
+          ZIP: el.ZIP,
+          region: el.region,
+          country: el.country,
+        })
+      })
+      let result = [];
+      result.push(...result1, ...result2)
+      console.log(result)
       res.send(JSON.stringify(result))
     }).catch(err => console.log(err));
+
   })
 });
 
@@ -193,7 +243,7 @@ app.delete('/api/Orders/:id/products/:ll', (req, res) => {
   let ll = req.params.ll;
   console.log(id, ll)
   sequelize.sync().then(() => {
-    PRODUCT.destroy({where: { productId: ll}})
+    PRODUCT.destroy({where: {productId: ll}})
     res.send("Data has been removed");
 
   })
@@ -210,7 +260,7 @@ app.post('/api/Orders', (req, res) => {
 
 app.post('/api/OrderProducts', (req, res) => {
   if (!req.body) return res.sendStatus(400);
-  PRODUCT.create( req.body ).then(res => {
+  PRODUCT.create(req.body).then(res => {
     console.log(res)
   }).catch(err => console.log(err));
   res.send("data was added")
@@ -219,11 +269,11 @@ app.post('/api/OrderProducts', (req, res) => {
 app.put('/api/Orders/:id', (req, res) => {
   let id = req.params.id;
   if (!req.body) return res.sendStatus(400);
-  ORDER.update( req.body,
+  ORDER.update(req.body,
     {where: {orderId: id}}
   ).then(res => {
     console.log(res);
-}).catch(err => console.log(err));
+  }).catch(err => console.log(err));
   res.send("data was updated")
 });
 
@@ -231,3 +281,4 @@ app.put('/api/Orders/:id', (req, res) => {
 app.listen(3000, () => {
   console.log('Example app listening on port 3000!');
 });
+*/
