@@ -7,8 +7,10 @@ const GETdata = () => {
   })
     .then(res => res.json())
     .then(data => {
-        Orders = data
-      console.log(Orders)
+        Orders = data;
+      document.getElementsByClassName('refreshIcon')[0].classList.remove('spin-active');
+      document.getElementsByClassName('add-orders-img')[0].src = './icons/plus.png'
+      document.getElementsByClassName('add-orders-img')[0].classList.remove('spin-active');
         if (Orders.length !== 0) {
           GETorderData();
           if (localStorage.getItem("lastOrder") !== null) {
@@ -25,9 +27,7 @@ const GETdata = () => {
           });
           GETfillData()
           GETproducts();
-          document.getElementsByClassName('refreshIcon')[0].classList.remove('spin-active');
-          document.getElementsByClassName('add-orders-img')[0].src = './icons/plus.png'
-          document.getElementsByClassName('add-orders-img')[0].classList.remove('spin-active');
+
         } else {
           ordersList.innerHTML = "<h3 class='no-results'>No orders available</h3>";
         }
@@ -45,10 +45,10 @@ const GETfillData = () => {
         GETorderDataTemp();
         GETshipDataTemp();
         Orders.forEach(el => {
-          if (el.id === orderIndex) {
+          if (el.orderInfo.id === orderIndex) {
             mapFn(el.customerInfo.address);
           }
-          localStorage.setItem('lastOrder', currentOrder.id);
+          localStorage.setItem('lastOrder', currentOrder.orderInfo.id);
         })
       }
     );
@@ -60,8 +60,8 @@ const GETproducts = () => {
   })
     .then(res => res.json())
     .then(data => {
+      console.log(data)
         productsList = data
-
         GETtableDataTemp();
       }
     );
@@ -76,7 +76,6 @@ const DELETEorder = (id) => {
       'Content-type': 'application/json; charset=UTF-8'
     },
   })
-    .then(res => res.json())
     .then(res => {
       GETdata();
     })
@@ -108,8 +107,8 @@ const POSTorder = (data) => {
     )
 }
 
-const POSTproduct = (data) => {
-  fetch("http://localhost:3000/api/OrderProducts", {
+const POSTproduct = (data, id) => {
+  fetch(`http://localhost:3000/api/Orders/${id}/products`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
@@ -123,25 +122,21 @@ const POSTproduct = (data) => {
 
 const PUTorder = (shipToData, customerData) => {
   let data = {
-      "shipToName": shipToData[0],
-      " shipToAddress": shipToData[1],
-      "ZIP": shipToData[2],
-      "region": shipToData[3],
-      "country": shipToData[4],
-      "customerFirstName": customerData[0],
-      "customerLastName": '',
-      "customerAddress": customerData[1],
-      "customerPhone": customerData[2],
-      "customerEmail": customerData[3]
+    "firstName": shipToData[0],
+    "lastName": customerData[0].split(" ")[1],
+    "address": shipToData[1],
+    "phone": customerData[3],
+    "email": customerData[2],
+    "ZIP": shipToData[2],
+    "region": shipToData[3],
+    "country": shipToData[4]
   };
-  fetch(`http://localhost:3000/api/Orders/${currentOrder.id}`, {
+  fetch(`http://localhost:3000/api/Orders/${currentOrder.orderInfo.id}`, {
     method: "PUT",
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data)
   }).then(() => GETdata())
-    .then(() => GETorderData()
-    )
 };
 

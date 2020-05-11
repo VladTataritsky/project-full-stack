@@ -23,13 +23,13 @@ const GETorderData = (item) => {
       let orderContent = document.createElement("div");
       orderContent.classList.add("order-content");
       orderContent.tabIndex = 0;
-      orderContent.setAttribute("data-id", Orders[index].id);
+      orderContent.setAttribute("data-id", Orders[index].orderInfo.id);
       orderContent.innerHTML =
-        `<h3>Order ${Orders[index].id}</h3>
-               <p>${Orders[index].customerId}</p>
-               <p>Shipped: ${Orders[index].shippedAt.slice(0, 10)}</p>
-               <h2 class="date">${Orders[index].createdAt.slice(0, 10)}</h2>
-               <p class="order-status">${Orders[index].status}</p>
+        `<h3>Order ${Orders[index].orderInfo.id}</h3>
+               <p>${Orders[index].customerInfo.firstName}</p>
+               <p>Shipped: ${Orders[index].orderInfo.updatedAt.slice(0, 10)}</p>
+               <h2 class="date">${Orders[index].orderInfo.createdAt.slice(0, 10)}</h2>
+               <p class="order-status">${Orders[index].orderInfo.status}</p>
 <img class="bin-img" src="./icons/trash.png" alt="">`;
       ordersList.appendChild(orderContent);
       // getOrderId();
@@ -39,13 +39,14 @@ const GETorderData = (item) => {
 
 // function which renders data in order block
 const GETorderDataTemp = () => {
+  console.log(1)
   const orderInfoData = document.getElementsByClassName("js-order-info-data")[0];
   document.getElementsByClassName("js-orders-quantity")[0].innerHTML = `Orders(${Orders.length})`;
-  orderInfoData.innerHTML = ` <h2>Order ${currentOrder.id}</h2>
+  orderInfoData.innerHTML = ` <h2>Order ${currentOrder.orderInfo.id}</h2>
                 <br>
-                <p>Customer: ${currentOrder.customerId}</p>
-                <p>Ordered: ${currentOrder.createdAt.slice(0, 10)}</p>
-                <p>Shipped: ${currentOrder.shippedAt.slice(0, 10)}</p>
+                <p>Customer: ${currentOrder.customerInfo.firstName}</p>
+                <p>Ordered: ${currentOrder.orderInfo.createdAt.slice(0, 10)}</p>
+                <p>Shipped: ${currentOrder.orderInfo.updatedAt.slice(0, 10)}</p>
                 <p class="price">
                 </p>`;
 };
@@ -57,9 +58,9 @@ const GETshipDataTemp = (data) => {
   shipToData.innerHTML = '';
   customerInfo.innerHTML = '';
 
-  let el = currentOrder
-  let inputShipToVal = [el[1].firstName, el[1].address, el[1].ZIP, el[1].region, el[1].country];
-  let inputCustInfVal = [`${el[1].firstName} ${el[1].lastName}`, el[1].address, '-', el[1].phone];
+  let el = currentOrder.customerInfo;
+  let inputShipToVal = [el.firstName, el.address, el.ZIP, el.region, el.country];
+  let inputCustInfVal = [`${el.firstName} ${el.lastName}`,1 , 'Developer', el.phone];
   if(typeof data === 'undefined') {
     inputShipToVal.forEach((elem) => {
       shipToData.innerHTML += `<li>${elem}</li>`;
@@ -90,18 +91,19 @@ const GETtableDataTemp = (item) => {
   let fullPrice = 0;
   if (productsList.length !== 0) {
     item.forEach((i) => {
-      fullPrice += parseFloat(productsList[i].totalPrice);
+      fullPrice += parseFloat(+productsList[i].orderProduct.quantity * +productsList[i].productInfo.price);
+      console.log(2)
       document.getElementsByClassName("price")[0].innerHTML = `${fullPrice}<br>
      <small>
-     <small>${productsList[i].currency}</small>
+     <small>EUR</small>
      </small>`;
       let tr = document.createElement("tr");
-      tr.setAttribute('data-id', productsList[i].id);
-      tr.innerHTML = `<td><h4>${productsList[i].name}</h4>
-                       <span>${productsList[i].productId}</span></td>
-                   <td data-label="Unit Price"><b>${productsList[i].price}</b> ${productsList[i].currency}</td>
-                   <td data-label="Quantity">${productsList[i].quantity}</td>
-                   <td data-label="Total"><b>${productsList[i].totalPrice}</b> ${productsList[i].currency}<img class="remove-product-img" src="./icons/trash.png"></td>`;
+      tr.setAttribute('data-id', productsList[i].productInfo.id);
+      tr.innerHTML = `<td><h4>${productsList[i].productInfo.name}</h4>
+                       <span>${productsList[i].productInfo.id}</span></td>
+                   <td data-label="Unit Price"><b>${productsList[i].productInfo.price}</b> EUR</td>
+                   <td data-label="Quantity">${productsList[i].orderProduct.quantity}</td>
+                   <td data-label="Total"><b>${+productsList[i].orderProduct.quantity * +productsList[i].productInfo.price}</b> EUR<img class="remove-product-img" src="./icons/trash.png"></td>`;
       document.getElementsByClassName("table-products")[0].appendChild(tr);
     })
   } else {
@@ -195,20 +197,20 @@ document.addEventListener("DOMContentLoaded", () => {
     json = toJSONString(this);
     json = JSON.parse(json);
     let data = {
-        "customer": json.firstName,
-        "status": "pending",
-        "totalPrice": 220,
-        "currency": "EUR",
-        "shipToName": "Leverx",
-        "shipToAddress": "Nemiga 18",
+    orderInfo : {
+      "customerId": '1',
+      "status": "pending"
+    },
+      customerInfo: {
+        "firstName": json.firstName,
+        "lastName": json.lastName,
+        "phone": json.phone,
+        "email": json.email,
+        "address": json.address,
         "ZIP": "2111",
         "region": "Minsk",
-        "country": "Belarus",
-        "customerFirstName": json.firstName,
-        "customerLastName": json.lastName,
-        "customerAddress": json.address,
-        "customerPhone": json.phone,
-        "customerEmail": json.email
+        "country": "Belarus"
+      }
     };
 
     POSTorder(data);
@@ -228,7 +230,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "totalPrice": productJson.price * productJson.quantity,
       "orderId": currentOrder.id
     }
-    POSTproduct(data);
+    POSTproduct(data, currentOrder.orderInfo.id);
     document.getElementsByClassName('popup')[0].style.display = 'none';
   });
 });
@@ -263,13 +265,13 @@ const sortTable = () => {
   let sortTableArr = [];
   productIdsArr.forEach((i) => {
     if (event.target.getAttribute("data-table") === "quantity") {
-      sortTableArr.push([i, Number(productsList[i].quantity)]);
+      sortTableArr.push([i, +productsList[i].orderProduct.quantity]);
     } else if (event.target.getAttribute("data-table") === "total") {
-      sortTableArr.push([i, +productsList[i].totalPrice]);
+      sortTableArr.push([i, +productsList[i].productInfo.totalPrice]);
     } else if (event.target.getAttribute("data-table") === "price") {
       sortTableArr.push([i, +productsList[i].price]);
     } else if (event.target.getAttribute("data-table") === "product") {
-      sortTableArr.push([i, productsList[i].name]);
+      sortTableArr.push([i, productsList[i].productInfo.name]);
     }
   });
   sortTableArr.sort(compare).forEach((el) => {
@@ -305,7 +307,7 @@ document.addEventListener("click", (event) => {
   }
   if (event.target.classList.contains('remove-product-img')) {
     let fk = +event.target.parentNode.parentNode.getAttribute('data-id');
-    let id = currentOrder.id;
+    let id = currentOrder.orderInfo.id;
     let x = confirm(`Remove this product. Are you sure?`)
     if (x) {
       DELETEproduct(id, fk);

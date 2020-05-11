@@ -1,0 +1,56 @@
+//GET order list                          http://localhost:3000/api/Orders
+
+//GET order by id                         http://localhost:3000/api/Orders/1
+
+//GET order products list                 http://localhost:3000/api/Orders/1/products
+
+
+//POST new order                          http://localhost:3000/api/Orders
+// BODY:
+
+{
+  "orderInfo": {
+    "customerId": "1",
+    "status": "pending"
+  },
+  "customerInfo": {
+    "firstName": "Michael",
+    "lastName": "Williams",
+    "phone": "375222666765",
+    "email": "somemail@mail.ru",
+    "address": "Leninskaya 14",
+    "ZIP": "21113",
+    "region": "Minsk",
+    "country": "Belarus"
+  }
+}
+
+//POST new product                          http://localhost:3000/api/Orders/1/products
+// BODY:
+
+{
+  "name": "Apple",
+  "price": "2",
+  "currency": "EUR",
+  "quantity": "10",
+  "orderId": "1"
+}
+//PUT order customer info                    http://localhost:3000/api/Orders/1
+//BODY
+
+{
+  "firstName": "Nick",
+  "lastName": "Jonson",
+  "address": "Farrington St",
+  "phone": "37529876111",
+  "email": "newmail@mail.ru",
+  "ZIP": "999877",
+  "region": "London",
+  "country": "UK"
+}
+
+// DELETE order by id                         http://localhost:3000/api/Orders/29
+
+// DELETE product by orderId and productId    http://localhost:3000/api/Orders/1/products/1
+
+

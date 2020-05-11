@@ -57,7 +57,8 @@ const PRODUCTINFO = sequelize.define("ProductInfo", {
   }, {
     tableName: 'ProductInfo'
   }
-)
+);
+
 
 const ORDERPRODUCT = sequelize.define("orderProduct", {
     id: {
@@ -81,62 +82,14 @@ const ORDERPRODUCT = sequelize.define("orderProduct", {
     },
 
   }
-)
-
+);
 
 sequelize.sync().then(() => {
   console.log('connection success');
 })
   .catch(err => console.log(err));
 
-// First Step
 
-ORDERINFO.create({
-  customerId: 1,
-  status: "shipped",
-}).then(res => {
-  console.log(res)
-}).catch(err => console.log(err));
-
-CUSTOMERINFO.create({
-  firstName: "Nick",
-  lastName: "Jackson",
-  phone: "+375334568721",
-  email: "tataritskii@gmail.com",
-  address: "Nemiha 22",
-  ZIP: "333432",
-  region: "Minsk",
-  country: "Belarus",
-}).then(res => {
-  console.log(res)
-}).catch(err => console.log(err));
-
-// Second step
-
-/*
-ORDERPRODUCT.create({
-  orderId: 1,
-  productId: 1,
-  quantity: "5"
-}).then(res => {
-  console.log(res)
-}).catch(err => console.log(err));
-
-
-PRODUCTINFO.create({
-  name: "eggs",
-  price: "2",
-}).then(res => {
-  console.log(res)
-}).catch(err => console.log(err));
-*/
-
-/////////////////
-
-
-
-
-/*
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
 
@@ -147,103 +100,92 @@ app.get('/', (req, res) => {
 
 app.get('/api/Orders', (req, res) => {
   sequelize.sync().then(() => {
-    let result1 = [];
+    let orderInfo = [];
+    let customerInfo = [];
+    let result = [];
     ORDERINFO.findAll().then(order => {
-      order.forEach(el => {
-        result1.push({
-          id: el.id,
-          customerId: el.customerId,
-          status: el.status,
-          shippedAt: el.createdAt,
-          createdAt: el.createdAt
-        })
-      })
+      orderInfo = order
     }).catch(err => console.log(err));
-    let result2 = [];
     CUSTOMERINFO.findAll().then(customer => {
-      customer.forEach(el => {
-        result2.push({
-          firstName: el.firstName,
-          lastName: el.lastName,
-          address: el.address,
-          phone: el.phone,
-          email: el.email,
-          ZIP: el.ZIP,
-          region: el.region,
-          country: el.country,
-        })
-      })
-      let result = [];
-      result.push(...result1, ...result2)
-      console.log(result)
+      customerInfo = customer;
+      orderInfo.forEach((el, i) => {
+        result.push({
+          orderInfo: orderInfo[i],
+          customerInfo: customerInfo[i]
+        });
+      });
       res.send(JSON.stringify(result))
     }).catch(err => console.log(err));
-
   })
 });
 
 
 app.get('/api/Orders/:id', (req, res) => {
-  let id = req.params.id;
+  let currentId = req.params.id;
   sequelize.sync().then(() => {
-    let result;
-    ORDER.findOne({where: {orderId: id}}).then(order => {
-      el = order;
-      result = {
-        id: el.orderId,
-        summary: {
-          createdAt: el.createdAt,
-          customer: el.customer,
-          status: el.status,
-          shippedAt: el.updatedAt,
-          totalPrice: el.totalPrice,
-          currency: el.currency
-        },
-        shipTo: {
-          name: el.shipToName,
-          address: el.shipToAddress,
-          ZIP: el.ZIP,
-          region: el.region,
-          country: el.country,
-        },
-        customerInfo: {
-          firstName: el.customerFirstName,
-          lastName: el.customerLastName,
-          address: el.customerAddress,
-          phone: el.customerPhone,
-          email: el.customerEmail,
-        }
-      }
-      res.send(JSON.stringify(result))
+    let currentOrder = [];
+    let currentCustomer = [];
+    let result = [];
+    ORDERINFO.findOne({where: {id: currentId}}).then(order => {
+      currentOrder = order;
+      CUSTOMERINFO.findOne({where: {id: currentId}}).then(customer => {
+        currentCustomer = customer;
+        result = {
+          orderInfo: currentOrder,
+          customerInfo: currentCustomer
+        };
+        res.send(JSON.stringify(result))
+      }).catch(err => console.log(err));
     }).catch(err => console.log(err));
   })
 });
 
 app.get('/api/Orders/:id/products', (req, res) => {
-  let id = req.params.id;
+  let currentOrder = +req.params.id;
   sequelize.sync().then(() => {
-    PRODUCT.findAll({where: {orderId: id}}).then(product => {
-      res.send(JSON.stringify(product))
+    let orderProduct = [];
+    let productInfo = [];
+    let result = [];
+    ORDERPRODUCT.findAll({where: {orderId: currentOrder},  order: [
+      ['productId', 'ASC'],
+    ]}).then(order => {
+      orderProduct = order;
+      let productIds = order.map(el => el.productId);
+      PRODUCTINFO.findAll({
+        where: {
+          id: productIds
+        }
+      }).then(products => {
+        productInfo = products;
+        products.forEach((el, i) => {
+          result.push({
+              orderProduct: orderProduct[i],
+              productInfo: productInfo[i]
+            }
+          );
+        });
+        res.send(JSON.stringify(result))
+      })
     }).catch(err => console.log(err));
-  })
+  }).catch(err => console.log(err));
 });
 
 app.delete('/api/Orders/:id', (req, res) => {
-  let id = req.params.id;
+  let currentId = req.params.id;
   sequelize.sync().then(() => {
-    PRODUCT.destroy({where: {orderId: id}})
-    ORDER.destroy({where: {orderId: id}})
+    ORDERPRODUCT.destroy({where: {orderId: currentId}});
+    ORDERINFO.destroy({where: {id: currentId}});
+    CUSTOMERINFO.destroy({where: {id: currentId}});
     res.send("Data has been removed");
 
   })
 });
 
-app.delete('/api/Orders/:id/products/:ll', (req, res) => {
+app.delete('/api/Orders/:id/products/:fk', (req, res) => {
   let id = req.params.id;
-  let ll = req.params.ll;
-  console.log(id, ll)
+  let fk = req.params.fk;
   sequelize.sync().then(() => {
-    PRODUCT.destroy({where: {productId: ll}})
+    ORDERPRODUCT.destroy({where: {orderId: id,productId: fk}})
     res.send("Data has been removed");
 
   })
@@ -251,26 +193,37 @@ app.delete('/api/Orders/:id/products/:ll', (req, res) => {
 
 app.post('/api/Orders', (req, res) => {
   if (!req.body) return res.sendStatus(400);
-  ORDER.create(req.body
-  ).then(res => {
-    console.log(res)
-  }).catch(err => console.log(err));
-  res.send("data was added")
+  ORDERINFO.create(req.body.orderInfo
+  ).catch(err => {console.log(err)
+  });
+  CUSTOMERINFO.create(req.body.customerInfo
+  ).catch(err => {console.log(err)
+  });
+   res.send("data was added")
 });
 
-app.post('/api/OrderProducts', (req, res) => {
+app.post('/api/Orders/:id/products', (req, res) => {
   if (!req.body) return res.sendStatus(400);
-  PRODUCT.create(req.body).then(res => {
-    console.log(res)
-  }).catch(err => console.log(err));
+  let currentId = req.params.id;
+  let productId;
+  PRODUCTINFO.findOne({where: {name: req.body.name}}).then(product => {
+    productId = +product.id;
+    ORDERPRODUCT.create({
+      orderId: +currentId,
+      productId: productId,
+      quantity: req.body.quantity
+    }).then(res => {
+      console.log(res)
+    }).catch(err => console.log(err));
+  })
   res.send("data was added")
 });
 
 app.put('/api/Orders/:id', (req, res) => {
-  let id = req.params.id;
+  let currentId = req.params.id;
   if (!req.body) return res.sendStatus(400);
-  ORDER.update(req.body,
-    {where: {orderId: id}}
+  CUSTOMERINFO.update(req.body,
+    {where: {id: currentId}}
   ).then(res => {
     console.log(res);
   }).catch(err => console.log(err));
@@ -279,6 +232,5 @@ app.put('/api/Orders/:id', (req, res) => {
 
 
 app.listen(3000, () => {
-  console.log('Example app listening on port 3000!');
+  console.log('Server listening on port 3000!');
 });
-*/
