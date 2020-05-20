@@ -32,14 +32,12 @@ const GETorderData = (item) => {
                <p class="order-status">${Orders[index].orderInfo.status}</p>
 <img class="bin-img" src="./icons/trash.png" alt="">`;
       ordersList.appendChild(orderContent);
-      // getOrderId();
     });
   }
 };
 
 // function which renders data in order block
 const GETorderDataTemp = () => {
-  console.log(1)
   const orderInfoData = document.getElementsByClassName("js-order-info-data")[0];
   document.getElementsByClassName("js-orders-quantity")[0].innerHTML = `Orders(${Orders.length})`;
   orderInfoData.innerHTML = ` <h2>Order ${currentOrder.orderInfo.id}</h2>
@@ -73,7 +71,7 @@ const GETshipDataTemp = (data) => {
       shipToData.innerHTML += `<input value='${elem}'>`;
     });
     inputCustInfVal.forEach((elem) => {
-      customerInfo.innerHTML += `<input value='${elem}'>`;
+      customerInfo.innerHTML += `<input value=${elem}>`;
     });
   }
 };
@@ -92,7 +90,6 @@ const GETtableDataTemp = (item) => {
   if (productsList.length !== 0) {
     item.forEach((i) => {
       fullPrice += parseFloat(+productsList[i].orderProduct.quantity * +productsList[i].productInfo.price);
-      console.log(2)
       document.getElementsByClassName("price")[0].innerHTML = `${fullPrice}<br>
      <small>
      <small>EUR</small>
@@ -136,8 +133,9 @@ const filterOrdersList = () => {
   const ordersIds = [];
   let filteredOrdersId = [];
   Orders.forEach((el, i) => {
-    for (let key in el.summary) {
-      if (el.summary[key] === document.getElementById("sidebarInput").value) {
+    for (let key in el.orderInfo) {
+      let value = document.getElementById("sidebarInput").value.toLowerCase();
+      if (el.orderInfo[key].toString().toLowerCase().includes(value) || el.customerInfo.firstName.toLowerCase().includes(value)) {
         ordersIds.push(i);
       }
     }
@@ -156,8 +154,9 @@ const filterTable = () => {
   sortCount = 0;
   const productsIds = [];
   productsList.forEach((prod, index) => {
-    for (let key in prod) {
-      if (prod[key] === document.getElementById("productsInput").value) {
+    for (let key in prod.productInfo) {
+      let value = document.getElementById("productsInput").value.toLowerCase()
+      if (prod.productInfo[key].toString().toLowerCase().includes(value) || prod.orderProduct.productId.toString().includes(value)) {
         productsIds.push(index);
       }
     }
@@ -198,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
     json = JSON.parse(json);
     let data = {
     orderInfo : {
-      "customerId": '1',
+      "customerId": 1,
       "status": "pending"
     },
       customerInfo: {
@@ -214,6 +213,8 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     POSTorder(data);
+    let formInputVal = form.querySelectorAll("input");
+    formInputVal.forEach((el) => el.value = '')
     document.getElementsByClassName('popup')[0].style.display = 'none';
   });
   let formProduct = document.getElementById("form-popup-products");
@@ -231,6 +232,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "orderId": currentOrder.id
     }
     POSTproduct(data, currentOrder.orderInfo.id);
+    let formProductVal = formProduct.querySelectorAll("input");
+    formProductVal.forEach((el) => el.value = '')
     document.getElementsByClassName('popup')[0].style.display = 'none';
   });
 });
@@ -267,9 +270,9 @@ const sortTable = () => {
     if (event.target.getAttribute("data-table") === "quantity") {
       sortTableArr.push([i, +productsList[i].orderProduct.quantity]);
     } else if (event.target.getAttribute("data-table") === "total") {
-      sortTableArr.push([i, +productsList[i].productInfo.totalPrice]);
+      sortTableArr.push([i, +productsList[i].productInfo.price * + productsList[i].orderProduct.quantity]);
     } else if (event.target.getAttribute("data-table") === "price") {
-      sortTableArr.push([i, +productsList[i].price]);
+      sortTableArr.push([i, +productsList[i].productInfo.price]);
     } else if (event.target.getAttribute("data-table") === "product") {
       sortTableArr.push([i, productsList[i].productInfo.name]);
     }
@@ -322,9 +325,6 @@ document.addEventListener("click", (event) => {
   /* if (event.target.classList.contains("js-sort-table")) {
      sortTable();
    }*/
-  if (event.target.classList.contains("order-content")) {
-    focusOrder()
-  }
   if (event.target.innerHTML === 'Edit') {
     GETshipDataTemp(1)
     document.getElementsByClassName('edit-toggle-btn')[0].innerHTML = 'Display';
@@ -347,5 +347,20 @@ document.addEventListener("click", (event) => {
     document.getElementsByClassName('edit-toggle-btn')[0].innerHTML = 'Edit';
     document.getElementsByClassName('edit-toggle-btn')[1].innerHTML = 'Edit';
     GETshipDataTemp()
+  } if (event.target.classList.contains('add-product-img')){
+    GETproductsCatalog()
+  }
+  if (event.target.classList.contains('add-orders-img')){
+    GETcustomerList()
+  }
+  if (event.target.classList.contains('popup-customer-li')){
+    document.getElementsByClassName('popup')[0].style.display = 'none'
+    let firstName = event.target.innerHTML.split(' ')[0];
+    let lastName = event.target.innerHTML.split(' ')[1];
+    let data = {
+      firstName: firstName,
+      lastName: lastName
+    }
+      POSTorder(data)
   }
 });

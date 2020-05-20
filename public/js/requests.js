@@ -25,9 +25,7 @@ const GETdata = () => {
               el.click()
             }
           });
-          GETfillData()
-          GETproducts();
-
+          GETfillData();
         } else {
           ordersList.innerHTML = "<h3 class='no-results'>No orders available</h3>";
         }
@@ -51,7 +49,9 @@ const GETfillData = () => {
           localStorage.setItem('lastOrder', currentOrder.orderInfo.id);
         })
       }
-    );
+    ).then(() => {
+    GETproducts()
+  });
 };
 
 const GETproducts = () => {
@@ -60,9 +60,38 @@ const GETproducts = () => {
   })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
         productsList = data
         GETtableDataTemp();
+      }
+    );
+}
+
+const GETproductsCatalog = () => {
+  fetch(`http://localhost:3000/api/products`, {
+    method: "GET",
+  })
+    .then(res => res.json())
+    .then(data => {
+       let ul = document.getElementsByClassName('catalog-products')[0];
+       ul.innerHTML = '';
+       data.forEach(el => {
+         ul.innerHTML+=`<li>${el.name} - ${el.price} EUR</li>`
+       })
+      }
+    );
+}
+
+const GETcustomerList = () => {
+  fetch(`http://localhost:3000/api/customers`, {
+    method: "GET",
+  })
+    .then(res => res.json())
+    .then(data => {
+        let ul = document.getElementsByClassName('customer-list')[0];
+        ul.innerHTML = '';
+        data.forEach(el => {
+          ul.innerHTML+=`<button class="popup-customer-li">${el.firstName} ${el.lastName}</button>`
+        })
       }
     );
 }
@@ -103,7 +132,7 @@ const POSTorder = (data) => {
     },
     body: JSON.stringify(data)
   }).then((res) => GETdata())
-    .then((d) => document.getElementsByClassName('orders-list')[0].lastChild.click()
+    .then(() => document.getElementsByClassName('orders-list')[0].lastChild.click()
     )
 }
 
