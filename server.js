@@ -3,11 +3,22 @@ const bodyParser = require("body-parser");
 const express = require('express');
 const app = express();
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
 
-const sequelize = new Sequelize("orders", "sa", "123", {
+let port_number = app.listen(process.env.PORT || 3000);
+
+const sequelize = new Sequelize("orders", "vlad", "Unalul44", {
   dialect: "mssql",
-  host: "localhost",
-  port: "1433"
+  host: "ordersm.database.windows.net",
+  port: "1433",
+  dialectOptions: {
+    options: {
+      encrypt: true,
+    }
+  }
 });
 
 
@@ -65,6 +76,15 @@ const PRODUCTINFO = sequelize.define("ProductInfo", {
   }
 );
 
+/*
+PRODUCTINFO.create({
+  name: "",
+  price: 2
+}).then(res=>{
+  console.log(res);
+}).catch(err=>console.log(err));
+
+*/
 
 const ORDERPRODUCT = sequelize.define("orderProduct", {
     id: {
@@ -99,32 +119,20 @@ sequelize.sync().then(() => {
 app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+
+app.get('/Orders/:id', (req, res) => {
+  let urlId = +req.params.id;
+  ORDERINFO.findOne({where: {id: urlId}}).then((order) => {
+    if (order !== null) {
+      app.use('/Orders/:id', express.static(__dirname + "/public"));
+      res.sendFile(__dirname + "/public/index.html");
+    } else {
+      res.send(`<h1>404</h1><h3>Order ${urlId} not found</h3><a href="https://fierce-lowlands-11067.herokuapp.com/">Go to main page</a>`);
+    }
+  })
 });
 
 
-/*app.get('/api/Orders', (req, res) => {
-  sequelize.sync().then(() => {
-    let orderInfo = [];
-    let customerInfo = [];
-    let result = [];
-    ORDERINFO.findAll().then(order => {
-      orderInfo = order
-    }).then(() => {
-      CUSTOMERINFO.findAll().then(customer => {
-        customerInfo = customer;
-        orderInfo.forEach((el, i) => {
-          result.push({
-            orderInfo: orderInfo[i],
-            customerInfo: customerInfo[i]
-          });
-        });
-        res.send(JSON.stringify(result))
-      }).catch(err => console.log(err));
-    }).catch(err => console.log(err));
-  })
-});*/
 
 app.get('/api/Orders', (req, res) => {
   sequelize.sync().then(() => {
@@ -140,7 +148,7 @@ app.get('/api/Orders', (req, res) => {
         orderInfo = order;
         orderInfo.forEach((ord, i) => {
           customerInfo.forEach((cust, j) => {
-            if(ord.customerId === cust.id) {
+            if (ord.customerId === cust.id) {
               result.push({
                 orderInfo: ord,
                 customerInfo: cust
@@ -245,18 +253,18 @@ app.delete('/api/Orders/:id/products/:fk', (req, res) => {
 
 app.post('/api/Orders', (req, res) => {
   if (!req.body) return res.sendStatus(400);
-  if(!req.body.firstName) {
+  if (!req.body.firstName) {
     CUSTOMERINFO.create(req.body.customerInfo
-  ).then(() => {
-    CUSTOMERINFO.findOne({where: {firstName: req.body.customerInfo.firstName}}).then((customer) => {
-      req.body.orderInfo.customerId = customer.id;
-    }).then(() => ORDERINFO.create(req.body.orderInfo))
-  }).catch(err => {
-    console.log(err)
-  }).catch(err => {
-    console.log(err)
-  });
-  res.send("data was added")
+    ).then(() => {
+      CUSTOMERINFO.findOne({where: {firstName: req.body.customerInfo.firstName}}).then((customer) => {
+        req.body.orderInfo.customerId = customer.id;
+      }).then(() => ORDERINFO.create(req.body.orderInfo))
+    }).catch(err => {
+      console.log(err)
+    }).catch(err => {
+      console.log(err)
+    });
+    res.send("data was added")
   } else {
     CUSTOMERINFO.findOne({where: {firstName: req.body.firstName}}).then((customer) => {
       CUSTOMERINFO.create(customer
@@ -334,6 +342,6 @@ app.put('/api/Orders/:id', (req, res) => {
 });
 
 
-app.listen(3000, () => {
+app.listen(port_number, () => {
   console.log('Server listening on port 3000!');
 });

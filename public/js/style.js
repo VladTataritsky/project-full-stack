@@ -109,4 +109,15 @@ document.getElementsByClassName('add-product-img')[0].addEventListener('click', 
 document.getElementsByClassName('close-popup-img')[0].addEventListener('click', ()=> {document.getElementsByClassName('popup')[0].style.display = 'none'
 });
 
-
+const focusOrder = () => {
+  for (let i = 0; i < ordersList.childNodes.length; i++) {
+    if (ordersList.childNodes[i].classList.contains("focus-order-content")) {
+      ordersList.childNodes[i].classList.remove("focus-order-content")
+    }
+  }
+  event.target.classList.add("focus-order-content");
+  if (window.screen.width <= maxPhoneSizeScreen) {
+    backMenu();
+    document.getElementsByClassName("content-block")[0].style.opacity = "1"
+  }
+};

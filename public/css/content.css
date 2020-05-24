@@ -156,7 +156,7 @@ hr {
 }
 
 .form-display-shipto {
-    width: 100%;
+    width: 150px;
 }
 
 .js-ship-to-data li, .js-customer-info li {
@@ -181,6 +181,7 @@ hr {
 
 #processorInfContainer .shipping-block {
     height: 250px;
+    overflow-x: hidden;
 }
 
 .shipping-block .details-block {
@@ -189,6 +190,7 @@ hr {
     display: flex;
     flex-direction: row;
     vertical-align: top;
+    overflow-x: hidden;
 }
 
 .details-block-wrapper {

@@ -42,7 +42,7 @@ const GETorderDataTemp = () => {
   document.getElementsByClassName("js-orders-quantity")[0].innerHTML = `Orders(${Orders.length})`;
   orderInfoData.innerHTML = ` <h2>Order ${currentOrder.orderInfo.id}</h2>
                 <br>
-                <p>Customer: ${currentOrder.customerInfo.firstName}</p>
+                <p>Customer: ${currentOrder.customerInfo.firstName} ${currentOrder.customerInfo.lastName}</p>
                 <p>Ordered: ${currentOrder.orderInfo.createdAt.slice(0, 10)}</p>
                 <p>Shipped: ${currentOrder.orderInfo.updatedAt.slice(0, 10)}</p>
                 <p class="price">
@@ -124,7 +124,7 @@ ordersList.addEventListener("click", (event) => {
     document.getElementById("sidebarInput").value = '';
     sortCount = 0;
     sortBtnState();
-   // window.history.pushState({}, null, `/Orders/${orderIndex}`);
+    window.history.pushState({}, null, `/Orders/${orderIndex}/`);
   }
 })
 
@@ -322,9 +322,9 @@ document.addEventListener("click", (event) => {
   if (event.target.classList.contains('js-sort-table')) {
     sortTable();
   }
-  /* if (event.target.classList.contains("js-sort-table")) {
-     sortTable();
-   }*/
+  if (event.target.classList.contains("order-content")) {
+    focusOrder()
+  }
   if (event.target.innerHTML === 'Edit') {
     GETshipDataTemp(1)
     document.getElementsByClassName('edit-toggle-btn')[0].innerHTML = 'Display';

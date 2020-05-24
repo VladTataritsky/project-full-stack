@@ -2,7 +2,7 @@ const GETdata = () => {
   document.getElementsByClassName('refreshIcon')[0].classList.add('spin-active');
   document.getElementsByClassName('add-orders-img')[0].src = './icons/refresh.png'
   document.getElementsByClassName('add-orders-img')[0].classList.add('spin-active');
-  fetch("http://localhost:3000/api/Orders", {
+  fetch("https://fierce-lowlands-11067.herokuapp.com/api/Orders", {
     method: "GET",
   })
     .then(res => res.json())
@@ -13,10 +13,15 @@ const GETdata = () => {
       document.getElementsByClassName('add-orders-img')[0].classList.remove('spin-active');
         if (Orders.length !== 0) {
           GETorderData();
-          if (localStorage.getItem("lastOrder") !== null) {
-            orderIndex = localStorage.getItem("lastOrder");
+          let url = window.location;
+          if(url.pathname === '/') {
+            if (localStorage.getItem("lastOrder") !== null) {
+              orderIndex = localStorage.getItem("lastOrder");
+            } else {
+              orderIndex = Orders[0].id
+            }
           } else {
-            orderIndex = Orders[0].id
+            orderIndex = url.pathname.split('/')[2]
           }
           let ordersList = document.getElementsByClassName('orders-list')[0];
           let elements = ordersList.querySelectorAll(".order-content");
@@ -34,7 +39,7 @@ const GETdata = () => {
 }
 
 const GETfillData = () => {
-  fetch(`http://localhost:3000/api/Orders/${orderIndex}`, {
+  fetch(`https://fierce-lowlands-11067.herokuapp.com/api/Orders/${orderIndex}`, {
     method: "GET",
   })
     .then(res => res.json())
@@ -55,7 +60,7 @@ const GETfillData = () => {
 };
 
 const GETproducts = () => {
-  fetch(`http://localhost:3000/api/Orders/${orderIndex}/products`, {
+  fetch(`https://fierce-lowlands-11067.herokuapp.com/api/Orders/${orderIndex}/products`, {
     method: "GET",
   })
     .then(res => res.json())
@@ -67,7 +72,7 @@ const GETproducts = () => {
 }
 
 const GETproductsCatalog = () => {
-  fetch(`http://localhost:3000/api/products`, {
+  fetch(`https://fierce-lowlands-11067.herokuapp.com/api/products`, {
     method: "GET",
   })
     .then(res => res.json())
@@ -82,7 +87,7 @@ const GETproductsCatalog = () => {
 }
 
 const GETcustomerList = () => {
-  fetch(`http://localhost:3000/api/customers`, {
+  fetch(`https://fierce-lowlands-11067.herokuapp.com/api/customers`, {
     method: "GET",
   })
     .then(res => res.json())
@@ -99,7 +104,7 @@ const GETcustomerList = () => {
 // DELETE section
 
 const DELETEorder = (id) => {
-  fetch(`http://localhost:3000/api/Orders/${id}`, {
+  fetch(`https://fierce-lowlands-11067.herokuapp.com/api/Orders/${id}`, {
     method: "DELETE",
     headers: {
       'Content-type': 'application/json; charset=UTF-8'
@@ -112,7 +117,7 @@ const DELETEorder = (id) => {
 }
 
 const DELETEproduct = (id, fk) => {
-  fetch(`http://localhost:3000/api/Orders/${id}/products/${fk}`, {
+  fetch(`https://fierce-lowlands-11067.herokuapp.com/api/Orders/${id}/products/${fk}`, {
     method: "DELETE",
     headers: {
       'Content-type': 'application/json; charset=UTF-8'
@@ -125,7 +130,7 @@ const DELETEproduct = (id, fk) => {
 
 
 const POSTorder = (data) => {
-  fetch("http://localhost:3000/api/Orders", {
+  fetch("https://fierce-lowlands-11067.herokuapp.com/api/Orders", {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
@@ -137,7 +142,7 @@ const POSTorder = (data) => {
 }
 
 const POSTproduct = (data, id) => {
-  fetch(`http://localhost:3000/api/Orders/${id}/products`, {
+  fetch(`https://fierce-lowlands-11067.herokuapp.com/api/Orders/${id}/products`, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
@@ -160,7 +165,7 @@ const PUTorder = (shipToData, customerData) => {
     "region": shipToData[3],
     "country": shipToData[4]
   };
-  fetch(`http://localhost:3000/api/Orders/${currentOrder.orderInfo.id}`, {
+  fetch(`https://fierce-lowlands-11067.herokuapp.com/api/Orders/${currentOrder.orderInfo.id}`, {
     method: "PUT",
     headers: {
       'Content-Type': 'application/json'
